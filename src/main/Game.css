@@ -1,0 +1,11 @@
+.game {
+    height: 330px;
+    width: 240px;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 80px 80px 80px;
+    grid-template-rows: 110px 110px 110px;
+}
