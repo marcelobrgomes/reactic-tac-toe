@@ -7,7 +7,7 @@ const initialGameArray = [null, null, null, null, null, null, null, null, null]
 export default props => {
     let [lastPlayer, setLastPlayer] = useState(0)
     let [gameArray, setGameArray] = useState([...initialGameArray])
-    let [winnerMessage, setWinnerMessage] = useState('')
+    let [message, setMessage] = useState('')
 
     const play = (i) => {
         if(gameArray[i] === 'X' || gameArray[i] === 'O') {
@@ -49,24 +49,29 @@ export default props => {
             })
     
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
-                setWinnerMessage('Jogador X venceu')
-                setGameArray([...initialGameArray])
+                setMessage('Jogador X venceu')
                 setLastPlayer(0);
                 return;
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
-                setWinnerMessage('Jogador 0 venceu')
-                setGameArray([...initialGameArray])
+                setMessage('Jogador 0 venceu')
                 setLastPlayer(1);
                 return;
             }
         });
 
+        if(!gameArray.includes(null)) {
+            setMessage('Deu velha!')
+        }
+    }
+
+    const restart = () => {
+        setGameArray([...initialGameArray])
     }
 
     return (
-        <React.Fragment>
+        <div className="container">
             <div className="game">
                 <Button id="0" play={play} value={gameArray[0]}/>
                 <Button id="1" play={play} value={gameArray[1]}/>
@@ -78,9 +83,12 @@ export default props => {
                 <Button id="7" play={play} value={gameArray[7]}/>
                 <Button id="8" play={play} value={gameArray[8]}/>
             </div>
-            <div className="winnerMessage">
-                <h2>{winnerMessage}</h2>
+            <div className="options">
+                <button onClick={()=> restart()}>Reiniciar</button>
             </div>
-        </React.Fragment>
+            <div className="message">
+                <h2>{message}</h2>
+            </div>
+        </div>
     )
 }

@@ -1,9 +1,22 @@
+.container {
+    width: 320px;
+    display: grid;
+    grid-template-columns: 240px 80px;
+}
+
+.options {
+    height: 330px;
+    width: 80px;
+    margin: 20px;
+}
+
 .game {
     height: 330px;
     width: 240px;
     border-radius: 5px;
     background-color: #fff;
     overflow: hidden;
+    margin: 20px;
 
     display: grid;
     grid-template-columns: 80px 80px 80px;
