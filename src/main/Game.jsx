@@ -4,34 +4,50 @@ import Button from '../components/Button';
 
 const initialGameArray = [null, null, null, null, null, null, null, null, null]
 
+const row1 = [0,1,2]
+const row2 = [3,4,5]
+const row3 = [6,7,8]
+
+const column1 = [0,3,6]
+const column2 = [1,4,7]
+const column3 = [2,5,8]
+
+const diagonal1 = [2,4,6]
+const diagonal2 = [0,4,8]
+
 const LOCAL_MULTIPLAYER_GAME = 1
 const LOCAL_SINGLEPLAYER_GAME = 2
 
 export default props => {
-    let [lastPlayer, setLastPlayer] = useState(0)
+    let [lastPlayer, setLastPlayer] = useState('O')
     let [gameArray, setGameArray] = useState([...initialGameArray])
     let [message, setMessage] = useState('')
     let [gametype, setGameType] = useState(LOCAL_SINGLEPLAYER_GAME)
-    let [gameTypeDescription, setGameTypeDescription] = useState('Single Player')
+    let [gameTypeDescription, setGameTypeDescription] = useState('Singleplayer')
     let [gameOver, setGameOver] = useState(false)
-    let [playerX, setPlayerX] = useState(null)
-    let [playerO, setPlayerO] = useState(null)
+    let [playerX, setPlayerX] = useState(undefined)
+    let [playerO, setPlayerO] = useState('Computer')
+    let [winner, setWinner] = useState(null)
+    let [level, setLevel] = useState('normal')
+    let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
 
     const play = (i) => {
         if(gameOver) {
             return;
         }
 
-        if(lastPlayer === 0) {
+        if(lastPlayer === 'O') {
             gameArray[i] = 'X';
-            lastPlayer = 1
+            lastPlayer = 'X'
         } else {
             gameArray[i] = 'O';
-            lastPlayer = 0
+            lastPlayer = 'O'
         }
 
-        setGameArray(gameArray);
-        setLastPlayer(lastPlayer);
+        setGameArray(gameArray)
+        setLastPlayer(lastPlayer)
+
+        checkGameOver()
     }
 
     const userPlay = (i) => {
@@ -40,22 +56,42 @@ export default props => {
         }
 
         play(i)
+        computerPlay()
+    }
 
+    /*
+    Levels:
+    - Easy: just random moves
+    - Normal: Defense moves
+    - Hard: Atack and defense moves
+    */
+    const computerPlay = () => {
         if(gametype === LOCAL_SINGLEPLAYER_GAME) {
             new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    computerPlay()
+                    let move
+        
+                    switch(level) {
+                        case 'easy':
+                            move = easyMove()
+                            break
+                        case 'hard':
+                            move = hardMove()
+                            break
+                        default:
+                            move = normalMove()
+                    }
+
+                    play(move)
                     resolve("Your move")
                 }, 1000)
             }).then(() => {
                 checkGameOver()
             })
         }
-
-        checkGameOver()
     }
 
-    const computerPlay = () => {
+    const easyMove = () => {
         let move = Math.floor(Math.random() * 9)
 
         while(gameArray[move] !== null) {
@@ -65,21 +101,79 @@ export default props => {
             move = Math.floor(Math.random() * 9)
         }
 
-        play(move)
+        return move;
+    }
+
+    const normalMove = () => {
+        let move
+
+        if(!computerFirstPositionPlayed) {
+            console.log('first computer move')
+            move = easyMove()
+            setComputerFirstPositionPlayed(move)
+            return move
+        }
+
+        return defenseMove()
+    }
+
+    const defenseMove = () => {
+        let winningPossibilities = [row1, row2, row3, column1, column2, column3, diagonal1, diagonal2]
+        let userWinningPossibilities = []
+        
+        winningPossibilities.forEach(possibility => {
+            let checkArray = []
+
+            possibility.forEach((position, i)=>{
+                checkArray[i] = gameArray[position]
+            })
+
+            if(checkArray.includes(lastPlayer) && !checkArray.includes(lastPlayer === 'O' ? 'X' : 'O')) {
+                userWinningPossibilities.push([checkArray, possibility])
+            }
+        })
+
+        console.log('userWinningPossibilities', userWinningPossibilities)
+        
+        let possibilitiesUserCanWinInTheNextMove = userWinningPossibilities.filter(possibility => {
+            return possibility[0].filter(move => {
+                return move === null
+            }).length === 1
+        })
+        
+        console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
+        
+        let defendedPossibilityIndex
+        let possibilityToDefend
+        let availablePosition
+        
+        if(possibilitiesUserCanWinInTheNextMove.length > 0) {
+            //if exists more than one possibility of user wins in the next move, random choose a position for defend.
+            defendedPossibilityIndex = Math.floor(Math.random() * possibilitiesUserCanWinInTheNextMove.length)
+            possibilityToDefend = possibilitiesUserCanWinInTheNextMove[defendedPossibilityIndex]
+            availablePosition = possibilityToDefend[0].lastIndexOf(null);
+
+            console.log('Position of the user winning possibility', possibilityToDefend[1][availablePosition])
+            return possibilityToDefend[1][availablePosition]
+        }
+
+        defendedPossibilityIndex = Math.floor(Math.random() * userWinningPossibilities.length)
+        possibilityToDefend = userWinningPossibilities[defendedPossibilityIndex]
+
+        if(possibilityToDefend) {
+            availablePosition = possibilityToDefend[0].lastIndexOf(null);
+            console.log('User cannot win in the next move, so playing in a empty slot', possibilityToDefend[1][availablePosition])
+            return possibilityToDefend[1][availablePosition]
+        }
+        
+        return gameArray.lastIndexOf(null) //else, return the last available position
+    }
+
+    const hardMove = () => {
+        console.log('hard move')
     }
 
     const checkGameOver = () => {
-        let row1 = [0,1,2]
-        let row2 = [3,4,5]
-        let row3 = [6,7,8]
-        
-        let column1 = [0,3,6]
-        let column2 = [1,4,7]
-        let column3 = [2,5,8]
-
-        let diagonal1 = [2,4,6]
-        let diagonal2 = [0,4,8]
-
         let winningPossibilities = [row1, row2, row3, column1, column2, column3, diagonal1, diagonal2]
         
         winningPossibilities.forEach((possibility, i) => {
@@ -91,21 +185,28 @@ export default props => {
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
                 setMessage(`${playerX ? playerX : 'Player X'} wins!`)
-                setLastPlayer(0);
+                setWinner(playerX)
+                setLastPlayer('0');
                 gameOver = true
                 return;
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
                 setMessage(`${playerO ? playerO : 'Player O'} wins!`)
-                setLastPlayer(1);
+                setWinner(playerO)
+                setLastPlayer('X');
                 gameOver = true
                 return;
             }
         });
 
         if(!gameOver && !gameArray.includes(null)) {
-            setMessage('Deu velha!')
+            setMessage('Tie in the game!')
+
+            if(winner) {
+                setLastPlayer(winner === playerX ? 'O' : 'X')
+            }
+
             gameOver = true
         }
 
@@ -118,6 +219,16 @@ export default props => {
         setGameTypeDescription(getGametypeDescription(gameType))
         setMessage(null)
         setGameOver(false)
+        setComputerFirstPositionPlayed(null)
+        setLastPlayer(winner === playerX ? 'O' : 'X')
+
+        if(winner === 'Computer') {
+            gameArray = [...initialGameArray]
+            computerFirstPositionPlayed = null
+            gameOver = false
+            
+            computerPlay()
+        }
     }
 
     const getGametypeDescription = (gameType) => {
@@ -152,6 +263,11 @@ export default props => {
                 <p className="playerName">Player O: <input type="text" id="playerTwo" value={playerO} onChange={(e) => setPlayerO(e.target.value)}/></p>
                 <div className="optionButtons">
                     <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
+                    <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
+                        <option value="easy">Easy</option>
+                        <option value="normal">Normal</option>
+                        <option value="hard">Hard</option>
+                    </select>
                     <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
                 </div>
             </div>
