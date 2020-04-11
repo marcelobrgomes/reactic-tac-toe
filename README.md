@@ -7,4 +7,4 @@ This is a project created for study [React library](https://reactjs.org/). The g
 
 ## Features
 
- - Coming soon...
+ - Single Player: the computer plays using random moves and promisses.

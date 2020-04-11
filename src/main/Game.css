@@ -1,5 +1,6 @@
 .container {
     width: 380px;
+    height: 465px;
     display: grid;
     grid-template-columns: 260px 120px;
     border: 1px solid #fff;
@@ -18,13 +19,20 @@
     grid-template-rows: 110px 110px 110px;
 }
 
+.gametype {
+    text-align: left;
+    padding-left: 20px;
+}
+
 .options {
     height: 330px;
     width: 80px;
-    margin: 20px;
-    
-    display: grid;
-    grid-template-rows: 30px 1fr;
+    margin: 55px 20px 0px 20px;
+}
+
+.options button {
+    height: 30px;
+    margin-bottom: 30px;
 }
 
 .message {
