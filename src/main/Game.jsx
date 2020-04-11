@@ -14,6 +14,8 @@ export default props => {
     let [gametype, setGameType] = useState(LOCAL_SINGLEPLAYER_GAME)
     let [gameTypeDescription, setGameTypeDescription] = useState('Single Player')
     let [gameOver, setGameOver] = useState(false)
+    let [playerX, setPlayerX] = useState(null)
+    let [playerO, setPlayerO] = useState(null)
 
     const play = (i) => {
         if(gameOver) {
@@ -88,14 +90,14 @@ export default props => {
             })
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
-                setMessage('Jogador X venceu')
+                setMessage(`${playerX ? playerX : 'Player X'} wins!`)
                 setLastPlayer(0);
                 gameOver = true
                 return;
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
-                setMessage('Jogador 0 venceu')
+                setMessage(`${playerO ? playerO : 'Player O'} wins!`)
                 setLastPlayer(1);
                 gameOver = true
                 return;
@@ -146,8 +148,12 @@ export default props => {
                 </div>
             </div>
             <div className="options">
-                <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
-                <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
+                <p className="playerName">Player X: <input type="text" id="playerOne" value={playerX} onChange={(e) => setPlayerX(e.target.value)}/></p>
+                <p className="playerName">Player O: <input type="text" id="playerTwo" value={playerO} onChange={(e) => setPlayerO(e.target.value)}/></p>
+                <div className="optionButtons">
+                    <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
+                    <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
+                </div>
             </div>
             <div className="message">
                 <h2>{message}</h2>

@@ -6,7 +6,7 @@ import Game from './main/Game'
 
 ReactDOM.render(
   <React.StrictMode>
-    <h1>#Jogo da Velha</h1>
+    <h1># Reactic-tac-toe #</h1>
     <Game />
   </React.StrictMode>,
   document.getElementById('root')

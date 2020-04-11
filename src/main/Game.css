@@ -1,11 +1,12 @@
 .container {
-    width: 380px;
-    height: 465px;
+    width: 490px;
+    height: 500px;
     display: grid;
     grid-template-columns: 260px 120px;
     border: 1px solid #fff;
     border-radius: 5px;
 }
+
 .game {
     height: 330px;
     width: 240px;
@@ -22,19 +23,33 @@
 .gametype {
     text-align: left;
     padding-left: 20px;
+    height: 54px;
 }
 
 .options {
     height: 330px;
-    width: 80px;
-    margin: 55px 20px 0px 20px;
+    width: 197px;
+    margin: 0px 20px 0px 20px;
 }
 
-.options button {
+.optionButtons {
+    width: 80px;
+}
+
+.optionButtons button {
     height: 30px;
     margin-bottom: 30px;
 }
 
 .message {
-    width: 380px;
+    width: 490px;
+}
+
+@font-face {
+    font-family: 'RobotoRegular';
+    src: url('../fonts/Roboto-Regular.ttf')
+}
+
+.playerName {
+    font-family: 'RobotoRegular', monospace;
 }
