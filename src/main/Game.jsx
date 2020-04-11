@@ -84,7 +84,7 @@ export default props => {
                 <Button id="8" play={play} value={gameArray[8]}/>
             </div>
             <div className="options">
-                <button onClick={()=> restart()}>Reiniciar</button>
+                <button onClick={()=> restart()}>Novo Jogo</button>
             </div>
             <div className="message">
                 <h2>{message}</h2>

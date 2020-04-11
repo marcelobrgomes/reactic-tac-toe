@@ -1,15 +1,10 @@
 .container {
-    width: 320px;
+    width: 380px;
     display: grid;
-    grid-template-columns: 240px 80px;
+    grid-template-columns: 260px 120px;
+    border: 1px solid #fff;
+    border-radius: 5px;
 }
-
-.options {
-    height: 330px;
-    width: 80px;
-    margin: 20px;
-}
-
 .game {
     height: 330px;
     width: 240px;
@@ -21,4 +16,17 @@
     display: grid;
     grid-template-columns: 80px 80px 80px;
     grid-template-rows: 110px 110px 110px;
+}
+
+.options {
+    height: 330px;
+    width: 80px;
+    margin: 20px;
+    
+    display: grid;
+    grid-template-rows: 30px 1fr;
+}
+
+.message {
+    width: 380px;
 }
