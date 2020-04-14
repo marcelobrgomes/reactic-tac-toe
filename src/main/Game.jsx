@@ -27,8 +27,6 @@ export default props => {
     let [gametype, setGameType] = useState(LOCAL_SINGLEPLAYER_GAME)
     let [gameTypeDescription, setGameTypeDescription] = useState('Singleplayer')
     let [gameOver, setGameOver] = useState(false)
-    let [playerX, setPlayerX] = useState(undefined)
-    let [playerO, setPlayerO] = useState('Computer')
     let [winner, setWinner] = useState(null)
     let [level, setLevel] = useState('normal')
     let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
@@ -243,16 +241,16 @@ export default props => {
             })
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
-                setMessage(`${playerX ? playerX : 'Player X'} wins!`)
-                setWinner(playerX)
+                setMessage(`Player X wins!`)
+                setWinner('X')
                 setLastPlayer('0');
                 gameOver = true
                 return;
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
-                setMessage(`${playerO ? playerO : 'Player O'} wins!`)
-                setWinner(playerO)
+                setMessage(`Player O wins!`)
+                setWinner('O')
                 setLastPlayer('X');
                 gameOver = true
                 return;
@@ -263,7 +261,7 @@ export default props => {
             setMessage('Tie in the game!')
 
             if(winner) {
-                setLastPlayer(winner === playerX ? 'O' : 'X')
+                setLastPlayer(winner === 'X' ? 'O' : 'X')
             }
 
             gameOver = true
@@ -279,9 +277,13 @@ export default props => {
         setMessage(null)
         setGameOver(false)
         setComputerFirstPositionPlayed(null)
-        setLastPlayer(winner === playerX ? 'O' : 'X')
 
-        if(winner === 'Computer') {
+        if(winner !== null) {
+            lastPlayer = winner === 'X' ? 'O' : 'X'
+            setLastPlayer(lastPlayer)
+        }
+
+        if(winner === 'O') { //computer
             gameArray = [...initialGameArray]
             computerFirstPositionPlayed = null
             gameOver = false
@@ -316,8 +318,6 @@ export default props => {
                 </div>
             </div>
             <div className="options">
-                <p className="playerName">Player X: <input type="text" id="playerOne" value={playerX} onChange={(e) => setPlayerX(e.target.value)}/></p>
-                <p className="playerName">Player O: <input type="text" id="playerTwo" value={playerO} onChange={(e) => setPlayerO(e.target.value)}/></p>
                 <div className="optionButtons">
                     <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
                     <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
