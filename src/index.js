@@ -4,10 +4,9 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Game from './main/Game'
 
-console.log('teste')
 ReactDOM.render(
   <React.StrictMode>
-    <h1># Reactic-tac-toe #</h1>
+    <h1># ReacTic-tac-toe #</h1>
     <Game />
   </React.StrictMode>,
   document.getElementById('root')
