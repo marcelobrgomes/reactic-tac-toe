@@ -1,56 +1,60 @@
 .container {
-    width: 490px;
-    height: 500px;
+    margin: 20px;
     display: grid;
-    grid-template-columns: 260px 120px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+
     border: 1px solid #fff;
     border-radius: 5px;
+    /* background: #f00; */
 }
 
 .game {
-    height: 330px;
-    width: 240px;
+ 
+}
+
+.board {
     border-radius: 5px;
-    background-color: #fff;
+    /* background-color: #fff; */
     overflow: hidden;
     margin: 20px;
 
     display: grid;
-    grid-template-columns: 80px 80px 80px;
-    grid-template-rows: 110px 110px 110px;
+    grid-template-columns: 2fr repeat(3, minmax(80px, 2fr)) 2fr;
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
 }
 
 .gametype {
     text-align: left;
-    padding-left: 20px;
     height: 54px;
+
+    /* background-color: cadetblue; */
 }
 
 .options {
-    height: 330px;
-    width: 197px;
-    margin: 90px 20px 0px 20px;
+    /* background-color: aqua; */
+    margin: 0px 20px 20px 0px;
 }
 
 .optionButtons {
-    width: 196px;
     display: grid;
-    grid-template-columns: 80px 80px;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    
+    gap: 10px;
+    /* background-color: brown; */
 }
-
+ 
 .optionButtons button {
     height: 30px;
-    margin-bottom: 30px;
 }
 
 .optionButtons select {
     height: 30px;
-    margin: 0px 0px 30px 16px;
-    width: 80px;
 }
 
 .message {
-    width: 490px;
+    width: 100%;
 }
 
 @font-face {

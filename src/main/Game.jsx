@@ -305,35 +305,43 @@ export default props => {
     }
 
     return (
-        <div className="container">
-            <div>
-                <p className="gametype">{gameTypeDescription}</p>
+        <React.Fragment>
+            <div className="container">
                 <div className="game">
-                    <Button id="0" play={userPlay} value={gameArray[0]}/>
-                    <Button id="1" play={userPlay} value={gameArray[1]}/>
-                    <Button id="2" play={userPlay} value={gameArray[2]}/>
-                    <Button id="3" play={userPlay} value={gameArray[3]}/>
-                    <Button id="4" play={userPlay} value={gameArray[4]}/>
-                    <Button id="5" play={userPlay} value={gameArray[5]}/>
-                    <Button id="6" play={userPlay} value={gameArray[6]}/>
-                    <Button id="7" play={userPlay} value={gameArray[7]}/>
-                    <Button id="8" play={userPlay} value={gameArray[8]}/>
+                    <div className="board">
+                        <div></div>
+                        <Button id="0" play={userPlay} value={gameArray[0]}/>
+                        <Button id="1" play={userPlay} value={gameArray[1]}/>
+                        <Button id="2" play={userPlay} value={gameArray[2]}/>
+                        <div></div>
+                        <div></div>
+                        <Button id="3" play={userPlay} value={gameArray[3]}/>
+                        <Button id="4" play={userPlay} value={gameArray[4]}/>
+                        <Button id="5" play={userPlay} value={gameArray[5]}/>
+                        <div></div>
+                        <div></div>
+                        <Button id="6" play={userPlay} value={gameArray[6]}/>
+                        <Button id="7" play={userPlay} value={gameArray[7]}/>
+                        <Button id="8" play={userPlay} value={gameArray[8]}/>
+                        <div></div>
+                    </div>
+                </div>
+                <div className="options">
+                    <p className="gametype">{gameTypeDescription}</p>
+                    <div className="optionButtons">
+                        <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
+                        <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
+                            <option value="easy">Easy</option>
+                            <option value="normal">Normal</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
+                    </div>
+                    <div className="message">
+                        <h2>{message}</h2>
+                    </div>
                 </div>
             </div>
-            <div className="options">
-                <div className="optionButtons">
-                    <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
-                    <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
-                        <option value="easy">Easy</option>
-                        <option value="normal">Normal</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                    <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
-                </div>
-            </div>
-            <div className="message">
-                <h2>{message}</h2>
-            </div>
-        </div>
+        </React.Fragment>
     )
 }
