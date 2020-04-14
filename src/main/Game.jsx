@@ -4,16 +4,18 @@ import Button from '../components/Button';
 
 const initialGameArray = [null, null, null, null, null, null, null, null, null]
 
-const row1 = [0,1,2]
-const row2 = [3,4,5]
-const row3 = [6,7,8]
+const ROW_1 = [0,1,2]
+const ROW_2 = [3,4,5]
+const ROW_3 = [6,7,8]
 
-const column1 = [0,3,6]
-const column2 = [1,4,7]
-const column3 = [2,5,8]
+const COLUMN_1 = [0,3,6]
+const COLUMN_2 = [1,4,7]
+const COLUMN_3 = [2,5,8]
 
-const diagonal1 = [2,4,6]
-const diagonal2 = [0,4,8]
+const DIAGONAL_1 = [2,4,6]
+const DIAGONAL_2 = [0,4,8]
+
+const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3, DIAGONAL_1, DIAGONAL_2]
 
 const LOCAL_MULTIPLAYER_GAME = 1
 const LOCAL_SINGLEPLAYER_GAME = 2
@@ -70,7 +72,7 @@ export default props => {
             new Promise((resolve, reject) => {
                 setTimeout(() => {
                     let move
-        
+
                     switch(level) {
                         case 'easy':
                             move = easyMove()
@@ -84,7 +86,7 @@ export default props => {
 
                     play(move)
                     resolve("Your move")
-                }, 1000)
+                }, 500)
             }).then(() => {
                 checkGameOver()
             })
@@ -114,35 +116,43 @@ export default props => {
             return move
         }
 
-        return defenseMove()
+        let userWinningPossibilities = getWinningPossibilities(lastPlayer)
+        let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
+        console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
+
+        return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove)
     }
 
-    const defenseMove = () => {
-        let winningPossibilities = [row1, row2, row3, column1, column2, column3, diagonal1, diagonal2]
+    const getWinningPossibilities = (player) => {
+        console.log(`player`, player)
         let userWinningPossibilities = []
-        
-        winningPossibilities.forEach(possibility => {
+
+        WINNING_POSSIBILITIES.forEach(possibility => {
             let checkArray = []
 
             possibility.forEach((position, i)=>{
                 checkArray[i] = gameArray[position]
             })
 
-            if(checkArray.includes(lastPlayer) && !checkArray.includes(lastPlayer === 'O' ? 'X' : 'O')) {
+            if(checkArray.includes(player) && !checkArray.includes(player === 'X' ? 'O' : 'X')) {
                 userWinningPossibilities.push([checkArray, possibility])
             }
         })
 
-        console.log('userWinningPossibilities', userWinningPossibilities)
-        
-        let possibilitiesUserCanWinInTheNextMove = userWinningPossibilities.filter(possibility => {
+        console.log('player winning possibilities', userWinningPossibilities)
+
+        return userWinningPossibilities;
+    }
+
+    const getPossibilitiesPlayerCanWinInTheNextMove = (playerWinningPossibilities) => {
+        return playerWinningPossibilities.filter(possibility => {
             return possibility[0].filter(move => {
                 return move === null
             }).length === 1
         })
-        
-        console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
-        
+    }
+
+    const defenseMove = (userWinningPossibilities, possibilitiesUserCanWinInTheNextMove) => {
         let defendedPossibilityIndex
         let possibilityToDefend
         let availablePosition
@@ -169,14 +179,63 @@ export default props => {
         return gameArray.lastIndexOf(null) //else, return the last available position
     }
 
+    const attackMove = (computerWinningPossibilities, possibilitiesComputerCanWinInTheNextMove) => {
+        let attackPossibilityIndex
+        let possibilityToAttack
+        let availablePosition
+        
+        if(possibilitiesComputerCanWinInTheNextMove.length > 0) {
+            //if exists more than one possibility of user wins in the next move, random choose a position for defend.
+            attackPossibilityIndex = Math.floor(Math.random() * possibilitiesComputerCanWinInTheNextMove.length)
+            possibilityToAttack = possibilitiesComputerCanWinInTheNextMove[attackPossibilityIndex]
+            availablePosition = possibilityToAttack[0].lastIndexOf(null);
+
+            console.log('Position of the computer winning possibility', possibilityToAttack[1][availablePosition])
+            return possibilityToAttack[1][availablePosition]
+        }
+
+        attackPossibilityIndex = Math.floor(Math.random() * computerWinningPossibilities.length)
+        possibilityToAttack = computerWinningPossibilities[attackPossibilityIndex]
+
+        if(possibilityToAttack) {
+            availablePosition = possibilityToAttack[0].lastIndexOf(null);
+            console.log('Computer cannot win in the next move, so playing in a empty slot', possibilityToAttack[1][availablePosition])
+            return possibilityToAttack[1][availablePosition]
+        }
+        
+        return gameArray.lastIndexOf(null) //else, return the last available position
+    }
+
     const hardMove = () => {
-        console.log('hard move')
+        let move
+
+        if(!computerFirstPositionPlayed) {
+            move = easyMove()
+            setComputerFirstPositionPlayed(move)
+            return move
+        }
+
+        let userWinningPossibilities = getWinningPossibilities(lastPlayer)
+        let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
+        
+        console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
+        
+        let computerWinningPossibilities = getWinningPossibilities(lastPlayer === 'X' ? 'O' : 'X')
+        let possibilitiesComputerCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(computerWinningPossibilities)
+
+        console.log(`possibilitiesComputerCanWinInTheNextMove`, possibilitiesComputerCanWinInTheNextMove)
+
+        if(possibilitiesComputerCanWinInTheNextMove.length > 0) {
+            return attackMove(computerWinningPossibilities, possibilitiesComputerCanWinInTheNextMove)
+        } else if(possibilitiesUserCanWinInTheNextMove.length > 0) {
+            return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove)
+        } 
+
+        return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove)
     }
 
     const checkGameOver = () => {
-        let winningPossibilities = [row1, row2, row3, column1, column2, column3, diagonal1, diagonal2]
-        
-        winningPossibilities.forEach((possibility, i) => {
+        WINNING_POSSIBILITIES.forEach((possibility, i) => {
             let checkArray = []
 
             possibility.forEach((position, i)=>{
@@ -233,13 +292,11 @@ export default props => {
 
     const getGametypeDescription = (gameType) => {
         switch(gameType) {
-            case LOCAL_MULTIPLAYER_GAME:
-                return 'Local Multiplayer'
             case LOCAL_SINGLEPLAYER_GAME:
                 return 'Singleplayer'
+            default:
+                return 'Local Multiplayer'
         }
-
-        return ''
     }
 
     return (
