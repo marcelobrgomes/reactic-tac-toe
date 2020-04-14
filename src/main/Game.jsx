@@ -272,18 +272,21 @@ export default props => {
 
     const restart = (gameType) => {
         setGameArray([...initialGameArray])
-        setGameType(gameType)
         setGameTypeDescription(getGametypeDescription(gameType))
         setMessage(null)
         setGameOver(false)
         setComputerFirstPositionPlayed(null)
 
-        if(winner !== null) {
+        if(gameType !== gametype) {
+            setLastPlayer('O')
+        } else if(winner !== null) {
             lastPlayer = winner === 'X' ? 'O' : 'X'
             setLastPlayer(lastPlayer)
         }
 
-        if(winner === 'O') { //computer
+        setGameType(gameType)
+
+        if(winner === 'O' && gameType === LOCAL_SINGLEPLAYER_GAME) { //computer
             gameArray = [...initialGameArray]
             computerFirstPositionPlayed = null
             gameOver = false
