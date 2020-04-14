@@ -8,6 +8,6 @@ This is a project created for study [React library](https://reactjs.org/). The g
 ## Features
 
  - Single Player: the user plays with the machine. There are three game levels:
-    1. Easy: the machine plays using random moves and promisses.
+    1. Easy: the machine plays using random moves.
     2. Normal: the machine plays in defense mode.
     3. Hard: the machine plays both in defense and attack mode. - Not implemented yet.
