@@ -21,8 +21,8 @@
     margin: 20px;
 
     display: grid;
-    grid-template-columns: 2fr repeat(3, minmax(80px, 2fr)) 2fr;
-    grid-template-rows: repeat(3, minmax(100px, 1fr));
+    grid-template-columns: 2fr repeat(3, minmax(50px, 2fr)) 2fr;
+    grid-template-rows: repeat(3, minmax(75px, 1fr));
 }
 
 .gametype {
@@ -46,11 +46,11 @@
 }
  
 .optionButtons button {
-    height: 30px;
+    padding: 5px;
 }
 
 .optionButtons select {
-    height: 30px;
+    padding: 5px;
 }
 
 .message {
