@@ -341,6 +341,9 @@ export default props => {
                         <h2>{message}</h2>
                     </div>
                 </div>
+                <div class="footer">
+                    #2020 - Developed by Marcelo de Britto Gomes
+                </div>
             </div>
         </React.Fragment>
     )

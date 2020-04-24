@@ -3,10 +3,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    grid-template-areas: 
+        "main sidebar"
+        "footer footer"
+        ;
     gap: 10px;
-
-    border: 1px solid #fff;
-    border-radius: 5px;
     /* background: #f00; */
 }
 
@@ -23,6 +24,7 @@
     display: grid;
     grid-template-columns: 2fr repeat(3, minmax(50px, 2fr)) 2fr;
     grid-template-rows: repeat(3, minmax(75px, 1fr));
+    grid-area: main;
 }
 
 .gametype {
@@ -35,6 +37,11 @@
 .options {
     /* background-color: aqua; */
     margin: 0px 20px 20px 0px;
+    grid-area: sidebar;
+
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .optionButtons {
@@ -64,4 +71,10 @@
 
 .playerName {
     font-family: 'RobotoRegular', monospace;
+}
+
+.footer {
+    grid-area: footer;
+    font-family: 'RobotoRegular', monospace;
+    font-size: small;
 }
