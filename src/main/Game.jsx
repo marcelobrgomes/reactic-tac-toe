@@ -258,7 +258,7 @@ export default props => {
         });
 
         if(!gameOver && !gameArray.includes(null)) {
-            setMessage('Tie in the game!')
+            setMessage('Draw!')
 
             if(winner) {
                 setLastPlayer(winner === 'X' ? 'O' : 'X')
