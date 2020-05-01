@@ -23,7 +23,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import GameLayout from './layouts/Admin/GameLayout.js';
 
 import './assets/scss/black-dashboard-react.scss';
-import './assets/demo/demo.css';
+import './assets/demo/app.css';
 import './assets/css/nucleo-icons.css';
 
 const hist = createBrowserHistory();

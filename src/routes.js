@@ -26,7 +26,7 @@ import UserProfile from "./views/UserProfile.js";
 var routes = [
   {
     path: "/game",
-    name: "Game",
+    name: "Jogo",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,

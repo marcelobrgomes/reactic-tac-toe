@@ -241,7 +241,7 @@ export default props => {
             })
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
-                setMessage(`Player X wins!`)
+                setMessage(`Jogador X ganhou!`)
                 setWinner('X')
                 setLastPlayer('0');
                 gameOver = true
@@ -249,7 +249,7 @@ export default props => {
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
-                setMessage(`Player O wins!`)
+                setMessage(`Jogador O ganhou!`)
                 setWinner('O')
                 setLastPlayer('X');
                 gameOver = true
@@ -258,7 +258,7 @@ export default props => {
         });
 
         if(!gameOver && !gameArray.includes(null)) {
-            setMessage('Draw!')
+            setMessage('Empatou!')
 
             if(winner) {
                 setLastPlayer(winner === 'X' ? 'O' : 'X')
@@ -331,9 +331,9 @@ export default props => {
                     <div className="optionButtons">
                         <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
                         <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
-                            <option value="easy">Easy</option>
+                            <option value="easy">Fácil</option>
                             <option value="normal">Normal</option>
-                            <option value="hard">Hard</option>
+                            <option value="hard">Difícil</option>
                         </select>
                         <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
                     </div>

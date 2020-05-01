@@ -221,14 +221,15 @@ class Dashboard extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-          </Row>
+          </Row>*/}
+          
           <Row>
             <Col lg="6" md="12">
               <Card className="card-tasks">
                 <CardHeader>
-                  <h6 className="title d-inline">Tasks(5)</h6>
-                  <p className="card-category d-inline"> today</p>
-                  <UncontrolledDropdown>
+                  <h6 className="title d-inline">Tarefas(7)</h6>
+                  {/* <p className="card-category d-inline"> today</p> */}
+                  {/* <UncontrolledDropdown>
                     <DropdownToggle
                       caret
                       className="btn-icon"
@@ -258,7 +259,7 @@ class Dashboard extends React.Component {
                         Something else
                       </DropdownItem>
                     </DropdownMenu>
-                  </UncontrolledDropdown>
+                  </UncontrolledDropdown> */}
                 </CardHeader>
                 <CardBody>
                   <div className="table-full-width table-responsive">
@@ -268,7 +269,7 @@ class Dashboard extends React.Component {
                           <td>
                             <FormGroup check>
                               <Label check>
-                                <Input defaultValue="" type="checkbox" />
+                                <Input defaultValue="" type="checkbox" defaultChecked />
                                 <span className="form-check-sign">
                                   <span className="check" />
                                 </span>
@@ -276,9 +277,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">Update the Documentation</p>
-                            <p className="text-muted">
-                              Dwuamish Head, Seattle, WA 8:47 AM
+                            <p className="title striked">Criar o jogo multiplayer offline</p>
+                            <p className="text-muted striked">
+                              Desenvolver a versão inicial do jogo para multiplayer offline
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -295,7 +296,7 @@ class Dashboard extends React.Component {
                               target="tooltip636901683"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -315,12 +316,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">GDPR Compliance</p>
-                            <p className="text-muted">
-                              The GDPR is a regulation that requires businesses
-                              to protect the personal data and privacy of Europe
-                              citizens for transactions that occur within EU
-                              member states.
+                            <p className="title striked">Implementar single player</p>
+                            <p className="text-muted striked">
+                              Implementação do singleplayer nível fácil, com movimentos randômicos.
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -337,7 +335,7 @@ class Dashboard extends React.Component {
                               target="tooltip457194718"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -345,7 +343,7 @@ class Dashboard extends React.Component {
                           <td>
                             <FormGroup check>
                               <Label check>
-                                <Input defaultValue="" type="checkbox" />
+                                <Input defaultValue="" type="checkbox" defaultChecked />
                                 <span className="form-check-sign">
                                   <span className="check" />
                                 </span>
@@ -353,10 +351,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">Solve the issues</p>
-                            <p className="text-muted">
-                              Fifty percent of all respondents said they would
-                              be more likely to shop at a company
+                            <p className="title striked">Nível normal</p>
+                            <p className="text-muted striked">
+                              Desenvolver lógica para o nível normal, com movimentos de defesa.
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -373,7 +370,7 @@ class Dashboard extends React.Component {
                               target="tooltip362404923"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -381,7 +378,7 @@ class Dashboard extends React.Component {
                           <td>
                             <FormGroup check>
                               <Label check>
-                                <Input defaultValue="" type="checkbox" />
+                                <Input defaultValue="" type="checkbox" defaultChecked />
                                 <span className="form-check-sign">
                                   <span className="check" />
                                 </span>
@@ -389,9 +386,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">Release v2.0.0</p>
-                            <p className="text-muted">
-                              Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM
+                            <p className="title striked">Nível Difícil</p>
+                            <p className="text-muted striked">
+                              Implementar o nível difícil, com movimentos de defesa e ataque.
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -408,7 +405,7 @@ class Dashboard extends React.Component {
                               target="tooltip818217463"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -416,7 +413,7 @@ class Dashboard extends React.Component {
                           <td>
                             <FormGroup check>
                               <Label check>
-                                <Input defaultValue="" type="checkbox" />
+                                <Input defaultValue="" type="checkbox" defaultChecked />
                                 <span className="form-check-sign">
                                   <span className="check" />
                                 </span>
@@ -424,11 +421,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">Export the processed files</p>
-                            <p className="text-muted">
-                              The report also shows that consumers will not
-                              easily forgive a company once a breach exposing
-                              their personal data occurs.
+                            <p className="title striked">Aplicar tema free</p>
+                            <p className="text-muted striked">
+                              Utilizar um tema free para melhorar o layout geral da aplicação.
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -445,7 +440,7 @@ class Dashboard extends React.Component {
                               target="tooltip831835125"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -461,9 +456,9 @@ class Dashboard extends React.Component {
                             </FormGroup>
                           </td>
                           <td>
-                            <p className="title">Arival at export process</p>
+                            <p className="title">Ajustar o jogo ao novo tema</p>
                             <p className="text-muted">
-                              Capitol Hill, Seattle, WA 12:34 AM
+                              Ajustes gerais de navegação e adaptação do tema ao jogo.
                             </p>
                           </td>
                           <td className="td-actions text-right">
@@ -480,7 +475,42 @@ class Dashboard extends React.Component {
                               target="tooltip217595172"
                               placement="right"
                             >
-                              Edit Task
+                              Editar
+                            </UncontrolledTooltip>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <FormGroup check>
+                              <Label check>
+                                <Input defaultValue="" type="checkbox" />
+                                <span className="form-check-sign">
+                                  <span className="check" />
+                                </span>
+                              </Label>
+                            </FormGroup>
+                          </td>
+                          <td>
+                            <p className="title">Lista de tarefas dinâmica</p>
+                            <p className="text-muted">
+                              Desenvolver a lógica para tornar esta lista de tarefas dinâmica.
+                            </p>
+                          </td>
+                          <td className="td-actions text-right">
+                            <Button
+                              color="link"
+                              id="tooltip217595172"
+                              title=""
+                              type="button"
+                            >
+                              <i className="tim-icons icon-pencil" />
+                            </Button>
+                            <UncontrolledTooltip
+                              delay={0}
+                              target="tooltip217595172"
+                              placement="right"
+                            >
+                              Editar
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -489,7 +519,7 @@ class Dashboard extends React.Component {
                   </div>
                 </CardBody>
               </Card>
-            </Col>
+            </Col>{/*
             <Col lg="6" md="12">
               <Card>
                 <CardHeader>
@@ -552,8 +582,8 @@ class Dashboard extends React.Component {
                   </Table>
                 </CardBody>
               </Card>
-            </Col>
-          </Row> */}
+            </Col>*/}
+          </Row> 
         </div>
       </>
     );
