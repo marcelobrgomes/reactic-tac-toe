@@ -32,11 +32,11 @@ import logo from "../../assets/img/react-logo.png";
 
 var ps;
 
-class Admin extends React.Component {
+class GameLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: "blue",
+      backgroundColor: "green",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
@@ -105,7 +105,7 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Reactic-Tac-Toe";
   };
   render() {
     return (
@@ -135,7 +135,7 @@ class Admin extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/dashboard"/>
+              <Redirect from="*" to="/admin/game"/>
             </Switch>
             {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (
@@ -152,4 +152,4 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+export default GameLayout;

@@ -11,4 +11,4 @@ This is a project created for study [React](https://reactjs.org/). The game was 
 	2. Normal: the machine plays in defense mode.
 	3. Hard: the machine plays both in defense and attack mode.
 - Local Multiplayer
-- Using the [Creative Tim's Black Dashboard React Theme](https://demos.creative-tim.com/black-dashboard-react/#/admin/)
+- Using the [Creative Tim's Free Black Dashboard React Theme](https://demos.creative-tim.com/black-dashboard-react/#/admin/)

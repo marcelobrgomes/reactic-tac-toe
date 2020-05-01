@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
         <div className="content">
           <Row>
             <Col xs="12">
-              <Card className="card-chart">
+              {/* <Card className="card-chart">
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
@@ -160,11 +160,11 @@ class Dashboard extends React.Component {
                     />
                   </div>
                 </CardBody>
-              </Card>
+              </Card> */}
               <Game />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
@@ -553,7 +553,7 @@ class Dashboard extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </>
     );

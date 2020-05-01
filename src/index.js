@@ -20,7 +20,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import AdminLayout from './layouts/Admin/Admin.js';
+import GameLayout from './layouts/Admin/GameLayout.js';
 
 import './assets/scss/black-dashboard-react.scss';
 import './assets/demo/demo.css';
@@ -31,8 +31,8 @@ const hist = createBrowserHistory();
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Route path="/admin" render={props => <GameLayout {...props} />} />
+      <Redirect from="/" to="/admin/game" />
     </Switch>
   </Router>,
   document.getElementById("root")

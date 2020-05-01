@@ -25,13 +25,13 @@ import UserProfile from "./views/UserProfile.js";
 
 var routes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
+    path: "/game",
+    name: "Game",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
     layout: "/admin"
-  },
+  }/*,
   {
     path: "/icons",
     name: "Icons",
@@ -79,6 +79,6 @@ var routes = [
     icon: "tim-icons icon-align-center",
     component: Typography,
     layout: "/admin"
-  }
+  }*/
 ];
 export default routes;
