@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import './Game.css'
-//import Button from '../components/Button';
+import Button from '../components/Button';
 
 import {
-    Button,
+    //Button,
     ButtonGroup,
     Card,
     CardHeader,
