@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import './Game.css'
-import Button from '../components/Button';
+import GameButton from '../components/Button';
+import classNames from "classnames";
 
 import {
-    //Button,
+    Button,
     ButtonGroup,
     Card,
     CardHeader,
@@ -49,6 +50,17 @@ export default props => {
     let [gameOver, setGameOver] = useState(false)
     let [winner, setWinner] = useState(null)
     let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
+
+    const getLevelName = () => {
+        switch(level) {
+            case 'easy':
+                return 'Fácil'
+            case 'hard':
+                return 'Difícil'
+            default:
+                return 'Normal'
+        }
+    }
 
     const play = (i) => {
         if(gameOver) {
@@ -264,7 +276,7 @@ export default props => {
             })
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
-                setMessage(`Jogador X ganhou!`)
+                setMessage(`X ganhou!`)
                 setWinner('X')
                 setLastPlayer('0');
                 gameOver = true
@@ -272,7 +284,7 @@ export default props => {
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
-                setMessage(`Jogador O ganhou!`)
+                setMessage(`O ganhou!`)
                 setWinner('O')
                 setLastPlayer('X');
                 gameOver = true
@@ -319,38 +331,122 @@ export default props => {
 
     return (
         <React.Fragment>
-            <div className="container">
-                <div className="game">
+            <Card className="card-chart">
+                <CardHeader>
+                  <Row>
+                    <Col className="text-left" sm="6">
+                      <h5 className="card-category">Placar: </h5>
+                      <CardTitle tag="h2">{message}</CardTitle>
+                    </Col>
+                    {props.gameMode === LOCAL_SINGLEPLAYER_GAME ? 
+                    
+                    <Col sm="6">
+                      <ButtonGroup
+                        className="btn-group-toggle float-right"
+                        data-toggle="buttons"
+                      >
+                        <Button
+                          tag="label"
+                          className={classNames("btn-simple", {
+                            active: level === "easy"
+                          })}
+                          color="info"
+                          id="0"
+                          size="sm"
+                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('easy')}}
+                        >
+                          <input
+                            defaultChecked
+                            className="d-none"
+                            name="options"
+                            type="radio"
+                          />
+                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                            Fácil
+                          </span>
+                          <span className="d-block d-sm-none">
+                            <i className="tim-icons icon-single-02" />
+                          </span>
+                        </Button>
+                        <Button
+                          color="info"
+                          id="1"
+                          size="sm"
+                          tag="label"
+                          className={classNames("btn-simple", {
+                            active: level === "normal"
+                          })}
+                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('normal')}}
+                        >
+                          <input
+                            className="d-none"
+                            name="options"
+                            type="radio"
+                          />
+                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                            Normal
+                          </span>
+                          <span className="d-block d-sm-none">
+                            <i className="tim-icons icon-gift-2" />
+                          </span>
+                        </Button>
+                        <Button
+                          color="info"
+                          id="2"
+                          size="sm"
+                          tag="label"
+                          className={classNames("btn-simple", {
+                            active: level === "hard"
+                          })}
+                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('hard') }}
+                        >
+                          <input
+                            className="d-none"
+                            name="options"
+                            type="radio"
+                          />
+                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                            Difícil
+                          </span>
+                          <span className="d-block d-sm-none">
+                            <i className="tim-icons icon-tap-02" />
+                          </span>
+                        </Button>
+                      </ButtonGroup>
+                    </Col>
+                    : null}
+                  </Row>
+                </CardHeader>
+                <CardBody>
+                  <div className="chart-area">
                     <div className="board">
                         <div></div>
-                        <Button id="0" play={userPlay} value={gameArray[0]}/>
-                        <Button id="1" play={userPlay} value={gameArray[1]}/>
-                        <Button id="2" play={userPlay} value={gameArray[2]}/>
+                        <GameButton id="0" play={userPlay} value={gameArray[0]}/>
+                        <GameButton id="1" play={userPlay} value={gameArray[1]}/>
+                        <GameButton id="2" play={userPlay} value={gameArray[2]}/>
                         <div></div>
                         <div></div>
-                        <Button id="3" play={userPlay} value={gameArray[3]}/>
-                        <Button id="4" play={userPlay} value={gameArray[4]}/>
-                        <Button id="5" play={userPlay} value={gameArray[5]}/>
+                        <GameButton id="3" play={userPlay} value={gameArray[3]}/>
+                        <GameButton id="4" play={userPlay} value={gameArray[4]}/>
+                        <GameButton id="5" play={userPlay} value={gameArray[5]}/>
                         <div></div>
                         <div></div>
-                        <Button id="6" play={userPlay} value={gameArray[6]}/>
-                        <Button id="7" play={userPlay} value={gameArray[7]}/>
-                        <Button id="8" play={userPlay} value={gameArray[8]}/>
+                        <GameButton id="6" play={userPlay} value={gameArray[6]}/>
+                        <GameButton id="7" play={userPlay} value={gameArray[7]}/>
+                        <GameButton id="8" play={userPlay} value={gameArray[8]}/>
                         <div></div>
-                    </div>
-                </div>
-                <div className="options">
-                    <div className="optionButtons">
-                        <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
-                            <option value="easy">Fácil</option>
-                            <option value="normal">Normal</option>
-                            <option value="hard">Difícil</option>
-                        </select>
                     </div>
                     <div className="message">
-                        <h2>{message}</h2>
+                        <h2></h2>
                     </div>
-                </div>
+                  </div>
+                </CardBody>
+              </Card>
+
+
+
+            <div className="container">
+                
             </div>
         </React.Fragment>
     )
