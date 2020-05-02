@@ -1,6 +1,26 @@
 import React, {useState} from 'react'
 import './Game.css'
-import Button from '../components/Button';
+//import Button from '../components/Button';
+
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    UncontrolledDropdown,
+    Label,
+    FormGroup,
+    Input,
+    Table,
+    Row,
+    Col,
+    UncontrolledTooltip
+  } from "reactstrap";
 
 const initialGameArray = [null, null, null, null, null, null, null, null, null]
 
@@ -17,18 +37,17 @@ const DIAGONAL_2 = [0,4,8]
 
 const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3, DIAGONAL_1, DIAGONAL_2]
 
-const LOCAL_MULTIPLAYER_GAME = 1
-const LOCAL_SINGLEPLAYER_GAME = 2
+const LOCAL_MULTIPLAYER_GAME = 'localMultiPlayer'
+const LOCAL_SINGLEPLAYER_GAME = 'singlePlayer'
 
 export default props => {
+    let [gametype, setGameType] = useState(props.gameMode)
+    let [level, setLevel] = useState('normal')
     let [lastPlayer, setLastPlayer] = useState('O')
     let [gameArray, setGameArray] = useState([...initialGameArray])
     let [message, setMessage] = useState('')
-    let [gametype, setGameType] = useState(LOCAL_SINGLEPLAYER_GAME)
-    let [gameTypeDescription, setGameTypeDescription] = useState('Singleplayer')
     let [gameOver, setGameOver] = useState(false)
     let [winner, setWinner] = useState(null)
-    let [level, setLevel] = useState('normal')
     let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
 
     const play = (i) => {
@@ -51,6 +70,10 @@ export default props => {
     }
 
     const userPlay = (i) => {
+        if(gameOver) {
+            restart(gametype)
+        }
+
         if(gameArray[i] === 'X' || gameArray[i] === 'O') {
             return;
         }
@@ -272,7 +295,6 @@ export default props => {
 
     const restart = (gameType) => {
         setGameArray([...initialGameArray])
-        setGameTypeDescription(getGametypeDescription(gameType))
         setMessage(null)
         setGameOver(false)
         setComputerFirstPositionPlayed(null)
@@ -292,15 +314,6 @@ export default props => {
             gameOver = false
             
             computerPlay()
-        }
-    }
-
-    const getGametypeDescription = (gameType) => {
-        switch(gameType) {
-            case LOCAL_SINGLEPLAYER_GAME:
-                return 'Singleplayer'
-            default:
-                return 'Local Multiplayer'
         }
     }
 
@@ -327,15 +340,12 @@ export default props => {
                     </div>
                 </div>
                 <div className="options">
-                    <p className="gametype">{gameTypeDescription}</p>
                     <div className="optionButtons">
-                        <button onClick={()=> restart(LOCAL_SINGLEPLAYER_GAME)}>Singleplayer</button>
                         <select id="level" onChange={(e) => {restart(LOCAL_SINGLEPLAYER_GAME); setLevel(e.target.value)}} defaultValue="normal">
                             <option value="easy">Fácil</option>
                             <option value="normal">Normal</option>
                             <option value="hard">Difícil</option>
                         </select>
-                        <button onClick={()=> restart(LOCAL_MULTIPLAYER_GAME)}>Local Multiplayer</button>
                     </div>
                     <div className="message">
                         <h2>{message}</h2>

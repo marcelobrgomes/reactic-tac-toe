@@ -113,7 +113,7 @@ class AdminNavbar extends React.Component {
                 {this.props.brandText}
               </NavbarBrand>
             </div>
-            <button
+            {/* <button
               aria-expanded={false}
               aria-label="Toggle navigation"
               className="navbar-toggler"
@@ -126,8 +126,8 @@ class AdminNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
-            </button>
-            <Collapse navbar isOpen={this.state.collapseOpen}>
+            </button> */}
+            {/* <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
                 <InputGroup className="search-bar">
                   <Button
@@ -209,7 +209,7 @@ class AdminNavbar extends React.Component {
                 </UncontrolledDropdown>
                 <li className="separator d-lg-none" />
               </Nav>
-            </Collapse>
+            </Collapse> */}
           </Container>
         </Navbar>
         <Modal

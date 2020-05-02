@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
         <div className="content">
           <Row>
             <Col xs="12">
-              {/* <Card className="card-chart">
+              <Card className="card-chart">
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
@@ -160,8 +160,10 @@ class Dashboard extends React.Component {
                     />
                   </div>
                 </CardBody>
-              </Card> */}
-              <Game />
+              </Card>
+              <Game 
+                gameMode={this.props.location.pathname.replace('/admin/','')}
+              />
             </Col>
           </Row>
           {/* <Row>
@@ -458,7 +460,7 @@ class Dashboard extends React.Component {
                           <td>
                             <p className="title">Ajustar o jogo ao novo tema</p>
                             <p className="text-muted">
-                              Ajustes gerais de navegação e adaptação do tema ao jogo.
+                              Ajustes gerais de navegação e adaptação do tema para o jogo.
                             </p>
                           </td>
                           <td className="td-actions text-right">

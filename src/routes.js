@@ -25,10 +25,16 @@ import UserProfile from "./views/UserProfile.js";
 
 var routes = [
   {
-    path: "/game",
-    name: "Jogo",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
+    path: "/singlePlayer",
+    name: "Singleplayer",
+    icon: "tim-icons icon-minimal-right",
+    component: Dashboard,
+    layout: "/admin"
+  },
+  {
+    path: "/localMultiPlayer",
+    name: "Local Multiplayer",
+    icon: "tim-icons icon-double-right",
     component: Dashboard,
     layout: "/admin"
   }/*,
