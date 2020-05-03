@@ -421,7 +421,6 @@ export default props => {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  <div className="chart-area">
                     <div className="board">
                         <div></div>
                         <GameButton id="0" play={userPlay} value={gameArray[0]}/>
@@ -439,7 +438,6 @@ export default props => {
                         <GameButton id="8" play={userPlay} value={gameArray[8]} className="bottom-right"/>
                         <div></div>
                     </div>
-                  </div>
                 </CardBody>
               </Card>
         </React.Fragment>
