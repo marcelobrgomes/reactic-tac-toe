@@ -4,8 +4,9 @@
 }
 
 .button {
-    font-size: 43px;
+    font-size: 60px;
     font-weight: bold;
+    padding: 0px;
     /* background-color: var(--bg-button); */
     border: none;
     border-right: var(--border-button);
