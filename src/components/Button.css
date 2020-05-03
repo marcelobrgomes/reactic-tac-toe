@@ -1,6 +1,6 @@
 :root {
     --bg-button: #f0f0f0;
-    --border-button: solid 10px rgb(38,	48,	73);
+    --border-button: solid 10px #36456b;
 }
 
 .button {
@@ -21,10 +21,6 @@
 
 .bottom-left, .bottom-middle, .bottom-right {
     border-bottom: none;
-}
-
-.button:active {
-    background-color: #ccc;
 }
 
 .button.x {
