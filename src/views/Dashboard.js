@@ -105,6 +105,11 @@ class Dashboard extends React.Component {
           title: 'Placar',
           description: 'Implementar o placar',
           completed: false
+        },
+        {
+          title: 'Animações',
+          description: 'Adicionar animações aos botões',
+          completed: true
         }
       ]
     };

@@ -53,17 +53,6 @@ export default props => {
     let [winner, setWinner] = useState(null)
     let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
 
-    const getLevelName = () => {
-        switch(level) {
-            case 'easy':
-                return 'Fácil'
-            case 'hard':
-                return 'Difícil'
-            default:
-                return 'Normal'
-        }
-    }
-
     const play = (i) => {
         if(gameOver) {
             return;
@@ -281,7 +270,7 @@ export default props => {
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
                 setMessage(`X ganhou!`)
                 setWinner('X')
-                setLastPlayer('0');
+                setLastPlayer('O');
                 gameOver = true
                 return;
             }
@@ -319,17 +308,36 @@ export default props => {
         } else if(winner !== null) {
             lastPlayer = winner === 'X' ? 'O' : 'X'
             setLastPlayer(lastPlayer)
+        } else {
+            setLastPlayer('O')
         }
 
         setGameType(gameType)
-
-        if(winner === 'O' && gameType === LOCAL_SINGLEPLAYER_GAME) { //computer
-            gameArray = [...initialGameArray]
-            computerFirstPositionPlayed = null
-            gameOver = false
+        
+        //Animations
+        const boardElement =  document.querySelector('.board')
+        boardElement.classList.add('rollOut')
+        boardElement.classList.add('rollIn')
+        
+        boardElement.addEventListener('animationend', function(e) { 
+            boardElement.classList.remove('rollOut')
             
-            computerPlay()
-        }
+            if(computerWonLastGame(gameType)) {
+                gameArray = [...initialGameArray]
+                computerFirstPositionPlayed = null
+                gameOver = false
+                
+                boardElement.removeEventListener('animationend', function() {})
+                
+                if(e.animationName == 'rollIn') {
+                    computerPlay()
+                }
+            }
+        })
+    }
+
+    const computerWonLastGame = (gameType) => {
+        return winner === 'O' && gameType === LOCAL_SINGLEPLAYER_GAME
     }
 
     return (
@@ -421,7 +429,7 @@ export default props => {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                    <div className="board">
+                    <div className={`board animated`}>
                         <div></div>
                         <GameButton id="0" play={userPlay} value={gameArray[0]}/>
                         <GameButton id="1" play={userPlay} value={gameArray[1]}/>

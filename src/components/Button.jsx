@@ -7,7 +7,7 @@ export default props => {
     
     if(props.value === 'X') {
         divValue = (
-            <div className="animated rotateIn faster">
+            <div className="animated flipInX fast">
                 <div className="x">&nbsp;</div>
                 <div className="x1">&nbsp;</div>
             </div>
