@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import './Game.css'
 import GameButton from '../components/Button';
 import classNames from "classnames";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBaby, faHiking, faUserNinja } from '@fortawesome/free-solid-svg-icons'
 
 import {
     Button,
@@ -366,7 +368,7 @@ export default props => {
                             Fácil
                           </span>
                           <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-single-02" />
+                            <FontAwesomeIcon icon={faBaby} />
                           </span>
                         </Button>
                         <Button
@@ -388,7 +390,7 @@ export default props => {
                             Normal
                           </span>
                           <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-gift-2" />
+                            <FontAwesomeIcon icon={faHiking} />
                           </span>
                         </Button>
                         <Button
@@ -410,7 +412,7 @@ export default props => {
                             Difícil
                           </span>
                           <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-tap-02" />
+                            <FontAwesomeIcon icon={faUserNinja} />
                           </span>
                         </Button>
                       </ButtonGroup>
