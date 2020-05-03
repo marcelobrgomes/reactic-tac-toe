@@ -55,14 +55,61 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bigChartData: "data1"
+      tasks: [
+        {
+          title: 'Criar o jogo multiplayer offline',
+          description: 'Desenvolver a versão inicial do jogo para multiplayer offline',
+          completed: true
+        },
+        {
+          title: 'Implementar single player',
+          description: 'Implementação do singleplayer nível fácil, com movimentos randômicos.',
+          completed: true
+        },
+        {
+          title: 'Nível normal',
+          description: 'Desenvolver lógica para o nível normal, com movimentos de defesa.',
+          completed: true
+        },
+        {
+          title: 'Nível Difícil',
+          description: 'Implementar o nível difícil, com movimentos de defesa e ataque.',
+          completed: true
+        },
+        {
+          title: 'Aplicar tema free',
+          description: 'Utilizar um tema free para melhorar o layout geral da aplicação.',
+          completed: true
+        },
+        {
+          title: 'Ajustar o jogo ao novo tema',
+          description: 'Ajustes gerais de navegação e adaptação do tema para o jogo.',
+          completed: true
+        },
+        {
+          title: 'Lista de tarefas dinâmica',
+          description: 'Desenvolver a lógica para tornar esta lista de tarefas dinâmica.',
+          completed: true
+        },
+        {
+          title: 'Lista de tarefas persistente',
+          description: 'Desenvolver a persistência desta lista de tarefas.',
+          completed: false
+        },
+        {
+          title: 'Novo nível Difícil',
+          description: 'Passar o nível difícil para o médio e desenvolver uma nova lógica para o nível difícil',
+          completed: false
+        },
+        {
+          title: 'Placar',
+          description: 'Implementar o placar',
+          completed: false
+        }
+      ]
     };
   }
-  setBgChartData = name => {
-    this.setState({
-      bigChartData: name
-    });
-  };
+
   render() {
     return (
       <>
@@ -137,7 +184,7 @@ class Dashboard extends React.Component {
             <Col lg="6" md="6">
               <Card className="card-tasks">
                 <CardHeader>
-                  <h6 className="title d-inline">Tarefas(7)</h6>
+                  <h6 className="title d-inline">Tarefas({this.state.tasks.length})</h6>
                   {/* <p className="card-category d-inline"> today</p> */}
                   {/* <UncontrolledDropdown>
                     <DropdownToggle
@@ -175,255 +222,49 @@ class Dashboard extends React.Component {
                   <div className="table-full-width table-responsive">
                     <Table>
                       <tbody>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" defaultChecked />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title striked">Criar o jogo multiplayer offline</p>
-                            <p className="text-muted striked">
-                              Desenvolver a versão inicial do jogo para multiplayer offline
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input
-                                  defaultChecked
-                                  defaultValue=""
-                                  type="checkbox"
-                                />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title striked">Implementar single player</p>
-                            <p className="text-muted striked">
-                              Implementação do singleplayer nível fácil, com movimentos randômicos.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip457194718"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip457194718"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" defaultChecked />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title striked">Nível normal</p>
-                            <p className="text-muted striked">
-                              Desenvolver lógica para o nível normal, com movimentos de defesa.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip362404923"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip362404923"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" defaultChecked />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title striked">Nível Difícil</p>
-                            <p className="text-muted striked">
-                              Implementar o nível difícil, com movimentos de defesa e ataque.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip818217463"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip818217463"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" defaultChecked />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title striked">Aplicar tema free</p>
-                            <p className="text-muted striked">
-                              Utilizar um tema free para melhorar o layout geral da aplicação.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip831835125"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip831835125"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Ajustar o jogo ao novo tema</p>
-                            <p className="text-muted">
-                              Ajustes gerais de navegação e adaptação do tema para o jogo.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip217595172"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip217595172"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Lista de tarefas dinâmica</p>
-                            <p className="text-muted">
-                              Desenvolver a lógica para tornar esta lista de tarefas dinâmica.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip217595172"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip217595172"
-                              placement="right"
-                            >
-                              Editar
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
+                        {this.state.tasks.reverse().map(task => { 
+                          return (
+                            <tr>
+                              <td>
+                                <FormGroup check>
+                                  <Label check>
+                                      {task.completed ? 
+                                        <Input defaultChecked defaultValue="" type="checkbox" /> : 
+                                        <Input defaultValue="" type="checkbox" />
+                                      }
+                                      
+                                    <span className="form-check-sign">
+                                      <span className="check" />
+                                    </span>
+                                  </Label>
+                                </FormGroup>
+                              </td>
+                              <td>
+                                <p className={`title ${task.completed ? 'striked' : ''}`}>{task.title}</p>
+                                <p className={`text-muted ${task.completed ? 'striked' : ''}`}>
+                                  {task.description}
+                                </p>
+                              </td>
+                              <td className="td-actions text-right">
+                                <Button
+                                  color="link"
+                                  id="tooltip457194718"
+                                  title=""
+                                  type="button"
+                                >
+                                  <i className="tim-icons icon-pencil" />
+                                </Button>
+                                <UncontrolledTooltip
+                                  delay={0}
+                                  target="tooltip457194718"
+                                  placement="right"
+                                >
+                                  Editar
+                                </UncontrolledTooltip>
+                              </td>
+                            </tr>
+                          )
+                        })}
                       </tbody>
                     </Table>
                   </div>
