@@ -12,3 +12,4 @@ This is a project created for study [React](https://reactjs.org/). The game was 
 	3. Hard: the machine plays both in defense and attack mode.
 - Local Multiplayer
 - Using the [Creative Tim's Free Black Dashboard React Theme](https://demos.creative-tim.com/black-dashboard-react/#/admin/)
+- CSS Animations with [Animate CSS](https://daneden.github.io/animate.css/)
