@@ -337,7 +337,7 @@ export default props => {
                   <Row>
                     <Col className="text-left" sm="6">
                       <h5 className="card-category">Placar: </h5>
-                      <CardTitle tag="h2">{message}</CardTitle>
+                      <CardTitle tag="h2">{message}&nbsp;</CardTitle>
                     </Col>
                     {props.gameMode === LOCAL_SINGLEPLAYER_GAME ? 
                     
@@ -424,17 +424,17 @@ export default props => {
                         <div></div>
                         <GameButton id="0" play={userPlay} value={gameArray[0]}/>
                         <GameButton id="1" play={userPlay} value={gameArray[1]}/>
-                        <GameButton id="2" play={userPlay} value={gameArray[2]}/>
+                        <GameButton id="2" play={userPlay} value={gameArray[2]} className="top-right"/>
                         <div></div>
                         <div></div>
                         <GameButton id="3" play={userPlay} value={gameArray[3]}/>
                         <GameButton id="4" play={userPlay} value={gameArray[4]}/>
-                        <GameButton id="5" play={userPlay} value={gameArray[5]}/>
+                        <GameButton id="5" play={userPlay} value={gameArray[5]} className="middle-right"/>
                         <div></div>
                         <div></div>
-                        <GameButton id="6" play={userPlay} value={gameArray[6]}/>
-                        <GameButton id="7" play={userPlay} value={gameArray[7]}/>
-                        <GameButton id="8" play={userPlay} value={gameArray[8]}/>
+                        <GameButton id="6" play={userPlay} value={gameArray[6]} className="bottom-left"/>
+                        <GameButton id="7" play={userPlay} value={gameArray[7]} className="bottom-middle"/>
+                        <GameButton id="8" play={userPlay} value={gameArray[8]} className="bottom-right"/>
                         <div></div>
                     </div>
                   </div>

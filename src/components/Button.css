@@ -1,16 +1,26 @@
 :root {
     --bg-button: #f0f0f0;
-    --border-button: solid 1px #888;
+    --border-button: solid 10px rgb(38,	48,	73);
 }
 
 .button {
-    font-size: 60px;
-    background-color: var(--bg-button);
+    font-size: 43px;
+    font-weight: bold;
+    /* background-color: var(--bg-button); */
     border: none;
     border-right: var(--border-button);
     border-bottom: var(--border-button);
     outline: none;
     text-align: center;
+    color: #3358f4;
+}
+
+.top-right, .middle-right, .bottom-right {
+    border-right: none;
+}
+
+.bottom-left, .bottom-middle, .bottom-right {
+    border-bottom: none;
 }
 
 .button:active {
@@ -18,9 +28,9 @@
 }
 
 .button.x {
-    color: #f00;
+    /* color: #f00; */
 }
 
 .button.o {
-    color: #00f;
+    /* color: #00f; */
 }

@@ -296,4 +296,18 @@
 
      }
    }
+
+   .board .button {
+       border-right: solid 10px #1d8cf8;
+       border-bottom: solid 10px #1d8cf8;
+   }
+    
+   .top-right, .middle-right, .bottom-right {
+       border-right: none !important;
+    }
+    
+    .bottom-left, .bottom-middle, .bottom-right {
+       border-bottom: none !important;
+    }
+    
 }
