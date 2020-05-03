@@ -84,6 +84,7 @@ export default props => {
     const userPlay = (i) => {
         if(gameOver) {
             restart(gametype)
+            return
         }
 
         if(gameArray[i] === 'X' || gameArray[i] === 'O') {
@@ -436,18 +437,9 @@ export default props => {
                         <GameButton id="8" play={userPlay} value={gameArray[8]}/>
                         <div></div>
                     </div>
-                    <div className="message">
-                        <h2></h2>
-                    </div>
                   </div>
                 </CardBody>
               </Card>
-
-
-
-            <div className="container">
-                
-            </div>
         </React.Fragment>
     )
 }
