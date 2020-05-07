@@ -1,5 +1,5 @@
 import React from 'react'
-import './Button.css'
+import './GameButton.css'
 import 'animate.css'
 
 export default props => {

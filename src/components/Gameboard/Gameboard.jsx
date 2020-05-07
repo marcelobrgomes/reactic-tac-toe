@@ -1,13 +1,10 @@
 import React, {useState} from 'react'
-import './Game.css'
-import GameButton from '../components/Button';
-import classNames from "classnames";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBaby, faHiking, faUserNinja } from '@fortawesome/free-solid-svg-icons'
+import './Gameboard.css'
+import GameButton from '../GameButton/GameButton';
+import LevelSwitch from './LevelSwitch'
+import {LOCAL_SINGLEPLAYER_GAME} from '../../Constants'
 
 import {
-    Button,
-    ButtonGroup,
     Card,
     CardHeader,
     CardBody,
@@ -39,9 +36,6 @@ const DIAGONAL_1 = [2,4,6]
 const DIAGONAL_2 = [0,4,8]
 
 const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3, DIAGONAL_1, DIAGONAL_2]
-
-const LOCAL_MULTIPLAYER_GAME = 'localMultiPlayer'
-const LOCAL_SINGLEPLAYER_GAME = 'singlePlayer'
 
 export default props => {
     let [gametype, setGameType] = useState(props.gameMode)
@@ -350,82 +344,15 @@ export default props => {
                       <CardTitle tag="h2">{message}&nbsp;</CardTitle>
                     </Col>
                     {props.gameMode === LOCAL_SINGLEPLAYER_GAME ? 
-                    
-                    <Col sm="6">
-                      <ButtonGroup
-                        className="btn-group-toggle float-right"
-                        data-toggle="buttons"
-                      >
-                        <Button
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: level === "easy"
-                          })}
-                          color="info"
-                          id="0"
-                          size="sm"
-                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('easy')}}
-                        >
-                          <input
-                            defaultChecked
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Fácil
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <FontAwesomeIcon icon={faBaby} />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="1"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: level === "normal"
-                          })}
-                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('normal')}}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Normal
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <FontAwesomeIcon icon={faHiking} />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="2"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: level === "hard"
-                          })}
-                          onClick={() => { restart(LOCAL_SINGLEPLAYER_GAME); setLevel('hard') }}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Difícil
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <FontAwesomeIcon icon={faUserNinja} />
-                          </span>
-                        </Button>
-                      </ButtonGroup>
-                    </Col>
-                    : null}
+                        <Col sm="6">
+                            <LevelSwitch 
+                                level={level} 
+                                setLevel={setLevel}
+                                restart={restart}
+                            />
+                        </Col>
+                    : 
+                        null}
                   </Row>
                 </CardHeader>
                 <CardBody>
