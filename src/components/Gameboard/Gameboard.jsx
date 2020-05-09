@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Gameboard.css'
 import GameButton from '../GameButton/GameButton';
 import LevelSwitch from './LevelSwitch'
@@ -38,47 +38,18 @@ const DIAGONAL_2 = [0,4,8]
 const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3, DIAGONAL_1, DIAGONAL_2]
 
 export default props => {
-    let [gametype, setGameType] = useState(props.gameMode)
+    let [gameType, setGameType] = useState(props.gameMode)
     let [level, setLevel] = useState('normal')
     let [lastPlayer, setLastPlayer] = useState('O')
-    let [gameArray, setGameArray] = useState([...initialGameArray])
+    const [gameArray, setGameArray] = useState([...initialGameArray])
     let [message, setMessage] = useState('')
     let [gameOver, setGameOver] = useState(false)
     let [winner, setWinner] = useState(null)
+    let [previousWinner, setPreviousWinner] = useState(null)
     let [computerFirstPositionPlayed, setComputerFirstPositionPlayed] = useState(null)
+    let [eventAnimationRegistered, setEventAnimationRegistered] = useState(false)
 
-    const play = (i) => {
-        if(gameOver) {
-            return;
-        }
-
-        if(lastPlayer === 'O') {
-            gameArray[i] = 'X';
-            lastPlayer = 'X'
-        } else {
-            gameArray[i] = 'O';
-            lastPlayer = 'O'
-        }
-
-        setGameArray(gameArray)
-        setLastPlayer(lastPlayer)
-
-        checkGameOver()
-    }
-
-    const userPlay = (i) => {
-        if(gameOver) {
-            restart(gametype)
-            return
-        }
-
-        if(gameArray[i] === 'X' || gameArray[i] === 'O') {
-            return;
-        }
-
-        play(i)
-        computerPlay()
-    }
+    
 
     /*
     Levels:
@@ -86,33 +57,33 @@ export default props => {
     - Normal: Defense moves
     - Hard: Atack and defense moves
     */
-    const computerPlay = () => {
-        if(gametype === LOCAL_SINGLEPLAYER_GAME) {
-            new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    let move
+    // const computerPlay = () => {
+    //     if(gameType === LOCAL_SINGLEPLAYER_GAME) {
+    //         //new Promise((resolve, reject) => {
+    //             setTimeout(() => {
+    //                 let move
 
-                    switch(level) {
-                        case 'easy':
-                            move = easyMove()
-                            break
-                        case 'hard':
-                            move = hardMove()
-                            break
-                        default:
-                            move = normalMove()
-                    }
+    //                 switch(level) {
+    //                     case 'easy':
+    //                         move = easyMove()
+    //                         break
+    //                     case 'hard':
+    //                         move = hardMove()
+    //                         break
+    //                     default:
+    //                         move = normalMove()
+    //                 }
 
-                    play(move)
-                    resolve("Your move")
-                }, 500)
-            }).then(() => {
-                checkGameOver()
-            })
-        }
-    }
+    //                 play(move)
+    //                 //checkGameOver()
+    //             //    resolve("Your move")
+    //             }, 500)
+    //         //}).then(() => {
+    //         //})
+    //     }
+    // }
 
-    const easyMove = () => {
+    /*const easyMove = () => {
         let move = Math.floor(Math.random() * 9)
 
         while(gameArray[move] !== null) {
@@ -137,13 +108,13 @@ export default props => {
 
         let userWinningPossibilities = getWinningPossibilities(lastPlayer)
         let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
-        console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
+        //console.log(`possibilitiesUserCanWinInTheNextMove`, possibilitiesUserCanWinInTheNextMove)
 
         return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove)
     }
 
     const getWinningPossibilities = (player) => {
-        console.log(`player`, player)
+        //console.log(`player`, player)
         let userWinningPossibilities = []
 
         WINNING_POSSIBILITIES.forEach(possibility => {
@@ -158,7 +129,7 @@ export default props => {
             }
         })
 
-        console.log('player winning possibilities', userWinningPossibilities)
+        //console.log('player winning possibilities', userWinningPossibilities)
 
         return userWinningPossibilities;
     }
@@ -182,7 +153,7 @@ export default props => {
             possibilityToDefend = possibilitiesUserCanWinInTheNextMove[defendedPossibilityIndex]
             availablePosition = possibilityToDefend[0].lastIndexOf(null);
 
-            console.log('Position of the user winning possibility', possibilityToDefend[1][availablePosition])
+            //console.log('Position of the user winning possibility', possibilityToDefend[1][availablePosition])
             return possibilityToDefend[1][availablePosition]
         }
 
@@ -191,7 +162,7 @@ export default props => {
 
         if(possibilityToDefend) {
             availablePosition = possibilityToDefend[0].lastIndexOf(null);
-            console.log('User cannot win in the next move, so playing in a empty slot', possibilityToDefend[1][availablePosition])
+            //console.log('User cannot win in the next move, so playing in a empty slot', possibilityToDefend[1][availablePosition])
             return possibilityToDefend[1][availablePosition]
         }
         
@@ -251,7 +222,39 @@ export default props => {
         } 
 
         return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove)
+    }*/
+
+    const play = (i) => {
+        
     }
+
+    const userPlay = (i) => {
+        if(gameOver) {
+            restart()
+            return
+        }
+
+        if(gameArray[i] !== null) {
+            return;
+        }
+        
+        let player = getNextPlayer(lastPlayer)
+        gameArray[i] = player;
+        setLastPlayer(player);
+        setGameArray([...gameArray])
+    }
+
+    const getNextPlayer = (currentPlayer) => {
+        return currentPlayer === 'X' ? 'O' : 'X'
+    }
+
+    useEffect(()=>{    
+        if(gameArray.every(element => element === null)) {
+            return
+        }
+        
+        checkGameOver()
+    }, [gameArray])
 
     const checkGameOver = () => {
         WINNING_POSSIBILITIES.forEach((possibility, i) => {
@@ -263,8 +266,7 @@ export default props => {
             
             if(checkArray.includes('X') && !checkArray.includes('O') && !checkArray.includes(null)) {
                 setMessage(`X ganhou!`)
-                setWinner('X')
-                setLastPlayer('O');
+                setWinner('X') //Se o jogador ganhar duas vezes seguidas precisa atualizar o objeto para o useEffect ser disparado
                 gameOver = true
                 return;
             }
@@ -272,7 +274,6 @@ export default props => {
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
                 setMessage(`O ganhou!`)
                 setWinner('O')
-                setLastPlayer('X');
                 gameOver = true
                 return;
             }
@@ -280,59 +281,72 @@ export default props => {
 
         if(!gameOver && !gameArray.includes(null)) {
             setMessage('Empatou!')
-
-            if(winner) {
-                setLastPlayer(winner === 'X' ? 'O' : 'X')
-            }
-
+            setWinner(null)
             gameOver = true
         }
 
         setGameOver(gameOver)
     }
 
-    const restart = (gameType) => {
+    useEffect(()=> {
+        if(winner) {
+            setLastPlayer(getNextPlayer(winner))
+        } else if(previousWinner) {
+            setLastPlayer(getNextPlayer(previousWinner))
+        }
+    }, [gameOver])
+    
+    const restart = () => {
         setGameArray([...initialGameArray])
         setMessage(null)
         setGameOver(false)
-        setComputerFirstPositionPlayed(null)
-
-        if(gameType !== gametype) {
-            setLastPlayer('O')
-        } else if(winner !== null) {
-            lastPlayer = winner === 'X' ? 'O' : 'X'
-            setLastPlayer(lastPlayer)
-        } else {
-            setLastPlayer('O')
+        
+        if(winner) {
+            setPreviousWinner(winner)
         }
-
-        setGameType(gameType)
         
-        //Animations
-        const boardElement =  document.querySelector('.board')
-        boardElement.classList.add('rollOut')
-        boardElement.classList.add('rollIn')
+        // setComputerFirstPositionPlayed(null)
         
-        boardElement.addEventListener('animationend', function(e) { 
-            boardElement.classList.remove('rollOut')
+        // if(!winner && !previousWinner) {
+        //     setLastPlayer('O')
+        // }
+        
+        
+        // //Animations
+        // const boardElement =  document.querySelector('.board')
+        // boardElement.classList.add('rollOut')
+        // boardElement.classList.add('rollIn')
+        
+        // if(!eventAnimationRegistered) {
+        //     console.log('registrando animationend');
             
-            if(computerWonLastGame(gameType)) {
-                gameArray = [...initialGameArray]
-                computerFirstPositionPlayed = null
-                gameOver = false
+        //     boardElement.addEventListener('animationend', function(e) {
+        //         setEventAnimationRegistered(true) 
+        //         boardElement.classList.remove('rollOut')
                 
-                boardElement.removeEventListener('animationend', function() {})
-                
-                if(e.animationName == 'rollIn') {
-                    computerPlay()
-                }
-            }
-        })
+        //         // if(computerWonLastGame()) {
+        //         //     console.log('computador ganhou o ultimo');
+                    
+        //         //     gameArray = [...initialGameArray]
+        //         //     computerFirstPositionPlayed = null
+        //         //     gameOver = false
+        //         //     lastPlayer = 'X'
+                    
+        //         //     //boardElement.removeEventListener('animationend', function() {})
+                    
+        //         //     if(e.animationName == 'rollIn') {
+        //         //         console.log('primeira jogada')
+        //         //         computerPlay()
+        //         //     }
+        //         // }
+        //     })
+        // }
     }
 
-    const computerWonLastGame = (gameType) => {
-        return winner === 'O' && gameType === LOCAL_SINGLEPLAYER_GAME
-    }
+    // const computerWonLastGame = () => {
+    //     return winner === 'O' && gameType === LOCAL_SINGLEPLAYER_GAME
+    // }
+
 
     return (
         <React.Fragment>
@@ -358,19 +372,19 @@ export default props => {
                 <CardBody>
                     <div className={`board animated`}>
                         <div></div>
-                        <GameButton id="0" play={userPlay} value={gameArray[0]}/>
-                        <GameButton id="1" play={userPlay} value={gameArray[1]}/>
-                        <GameButton id="2" play={userPlay} value={gameArray[2]} className="top-right"/>
+                        <GameButton id="0" key={0} play={userPlay} value={gameArray[0]}/>
+                        <GameButton id="1" key={1} play={userPlay} value={gameArray[1]}/>
+                        <GameButton id="2" key={2} play={userPlay} value={gameArray[2]} className="top-right"/>
                         <div></div>
                         <div></div>
-                        <GameButton id="3" play={userPlay} value={gameArray[3]}/>
-                        <GameButton id="4" play={userPlay} value={gameArray[4]}/>
-                        <GameButton id="5" play={userPlay} value={gameArray[5]} className="middle-right"/>
+                        <GameButton id="3" key={3} play={userPlay} value={gameArray[3]}/>
+                        <GameButton id="4" key={4} play={userPlay} value={gameArray[4]}/>
+                        <GameButton id="5" key={5} play={userPlay} value={gameArray[5]} className="middle-right"/>
                         <div></div>
                         <div></div>
-                        <GameButton id="6" play={userPlay} value={gameArray[6]} className="bottom-left"/>
-                        <GameButton id="7" play={userPlay} value={gameArray[7]} className="bottom-middle"/>
-                        <GameButton id="8" play={userPlay} value={gameArray[8]} className="bottom-right"/>
+                        <GameButton id="6" key={6} play={userPlay} value={gameArray[6]} className="bottom-left"/>
+                        <GameButton id="7" key={7} play={userPlay} value={gameArray[7]} className="bottom-middle"/>
+                        <GameButton id="8" key={8} play={userPlay} value={gameArray[8]} className="bottom-right"/>
                         <div></div>
                     </div>
                 </CardBody>
