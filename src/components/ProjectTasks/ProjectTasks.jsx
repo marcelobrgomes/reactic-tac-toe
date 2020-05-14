@@ -77,7 +77,7 @@ export default props => {
         {
             title: 'Corrigir restart singleplayer',
             description: 'Identificar e corrigir bugs no restart',
-            completed: false
+            completed: true
           }
       ]
 
