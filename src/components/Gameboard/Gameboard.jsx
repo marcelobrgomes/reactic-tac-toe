@@ -172,12 +172,9 @@ export default props => {
     useEffect(()=> {
         if(winner) {
             setNextPlayer(winner)
-            console.log('winner', winner)
         } else if(previousWinner) {
             setNextPlayer(previousWinner)
-            console.log(previousWinner)
         } else { //if drawed in the first play
-            console.log('drawed first')
             setNextPlayer('X')
         }
          
