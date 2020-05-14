@@ -40,7 +40,7 @@ const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3
 
 export default props => {
     const [level, setLevel] = useState('normal')
-    const [lastPlayer, setLastPlayer] = useState('O')
+    const [nextPlayer, setNextPlayer] = useState('X')
     const [gameArray, setGameArray] = useState([...initialGameArray])
     const [message, setMessage] = useState('')
     const [gameOver, setGameOver] = useState(false)
@@ -48,6 +48,7 @@ export default props => {
     const [previousWinner, setPreviousWinner] = useState(null)
     const [eventAnimationRegistered, setEventAnimationRegistered] = useState(false)
     const [computerPlayed, setComputerPlayed] = useState(true)
+    const [computerWillStart, setComputerWillStart] = useState(false)
 
     /*
     Levels:
@@ -63,10 +64,10 @@ export default props => {
                     move = easyMove(gameArray)
                     break
                 case 'hard':
-                    move = hardMove(lastPlayer, WINNING_POSSIBILITIES, gameArray)
+                    move = hardMove(getNextPlayer(nextPlayer), WINNING_POSSIBILITIES, gameArray)
                     break
                 default:
-                    move = normalMove(lastPlayer, WINNING_POSSIBILITIES, gameArray)
+                    move = normalMove(getNextPlayer(nextPlayer), WINNING_POSSIBILITIES, gameArray)
             }
             play(move)
             setComputerPlayed(true)
@@ -75,9 +76,8 @@ export default props => {
     }
 
     const play = (i) => {
-        let player = getNextPlayer(lastPlayer)
-        gameArray[i] = player;
-        setLastPlayer(player);
+        gameArray[i] = nextPlayer;
+        setNextPlayer(getNextPlayer(nextPlayer));
         setGameArray([...gameArray])
     }
 
@@ -96,10 +96,8 @@ export default props => {
     }
     
     useEffect(()=>{
-        console.log('useEffect computerPlayed')
         let computerWillMoveAgain = !gameOver && props.gameMode === LOCAL_SINGLEPLAYER_GAME && !computerPlayed
         if(computerWillMoveAgain) {
-            console.log('computer will play now')
             computerPlay()
         }
     }, [computerPlayed])
@@ -109,28 +107,29 @@ export default props => {
     }
     
     useEffect(()=>{    
-        console.log('useEffect gameArray');
-        
         if(gameArray.every(element => element === null)) {
-            console.log('gamearray reiniciou')
-            
-            if(computerWonLastGame(winner ? winner : previousWinner)) {
-                console.log('computer won');
-                setTimeout(() => {
-                        computerPlay()
-                    },
-                    2000
-                )
-            }
+            setComputerWillStart(computerWonLastGame(winner ? winner : previousWinner))
             return
         }
         
         checkGameOver()
 
     }, [gameArray])
+
+    useEffect(()=> {
+        if(computerWillStart) {
+            setTimeout(() => { 
+                computerPlay()
+                setComputerWillStart(false)
+            }, 2000)
+            
+        }
+    }, [computerWillStart])
     
     const checkGameOver = () => {
-        WINNING_POSSIBILITIES.forEach((possibility, i) => {
+        let gameOver = false
+
+        WINNING_POSSIBILITIES.forEach((possibility) => {
             let checkArray = []
             
             possibility.forEach((position, i)=>{
@@ -141,54 +140,50 @@ export default props => {
                 setMessage(`X ganhou!`)
                 setWinner('X')
                 setGameOver(true)
-                return;
+                setComputerPlayed(true)
+                gameOver = true
+                return
             }
             
             if(checkArray.includes('O') && !checkArray.includes('X') && !checkArray.includes(null)) {
                 setMessage(`O ganhou!`)
                 setWinner('O')
                 setGameOver(true)
-                return;
+                setComputerPlayed(true)
+                gameOver = true
+                return
             }
-            //console.log('checkarray', checkArray)
+            
         });
         
         if(!gameOver && !gameArray.includes(null)) {
-            console.log('gamearray empate ', gameArray)
             setMessage('Empatou!')
             setWinner(null)
             setGameOver(true)
+            setComputerPlayed(true)
+            return
         }
     }
     
     useEffect(()=> {
-        console.log('useEffect gameOver')
-        if(gameOver) {
-            if(winner) {
-                setLastPlayer(getNextPlayer(winner))
-                console.log('winner', winner)
-            } else if(previousWinner) {
-                setLastPlayer(getNextPlayer(previousWinner))
-                console.log(previousWinner)
-            } else { //if drawed in the first play
-                console.log('drawed first')
-                setLastPlayer('O')
-            }
-        } 
+        if(winner) {
+            setNextPlayer(winner)
+            console.log('winner', winner)
+        } else if(previousWinner) {
+            setNextPlayer(previousWinner)
+            console.log(previousWinner)
+        } else { //if drawed in the first play
+            console.log('drawed first')
+            setNextPlayer('X')
+        }
+         
     }, [gameOver])
-    
-    useEffect(()=>{
-        console.log('useEffect level')
-        setLastPlayer('O')
-        setGameArray([...initialGameArray])
-        setMessage('')
-        setGameOver(false)
-        setWinner(null)
-        setPreviousWinner(null)
-        setComputerPlayed(true)
-    }, [level])
 
     const restart = () => {
+        if(!gameOver && computerWonLastGame(winner ? winner : previousWinner)) {
+            setNextPlayer('O')
+        }
+
         setGameArray([...initialGameArray])
         setMessage(null)
         setGameOver(false)
@@ -206,14 +201,6 @@ export default props => {
             boardElement.addEventListener('animationend', function(e) {
                 setEventAnimationRegistered(true) 
                 boardElement.classList.remove('rollOut')
-        
-                if(e.animationName === 'rollIn') {
-                    // if(computerWonLastGame()) {
-                    //     console.log('computer won');
-                        
-                    //     computerPlay()
-                    // }
-                }
             })
         }
     }
