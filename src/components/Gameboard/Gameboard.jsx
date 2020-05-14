@@ -92,7 +92,11 @@ export default props => {
         }
         
         play(i)
-        setComputerPlayed(false)
+        checkGameOver()
+        
+        if(!gameOver) {
+            setComputerPlayed(false)
+        }
     }
     
     useEffect(()=>{
