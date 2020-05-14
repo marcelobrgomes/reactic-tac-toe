@@ -49,6 +49,8 @@ export default props => {
     const [eventAnimationRegistered, setEventAnimationRegistered] = useState(false)
     const [computerPlayed, setComputerPlayed] = useState(true)
     const [computerWillStart, setComputerWillStart] = useState(false)
+    const [xCount, setXCount] = useState(0)
+    const [oCount, setOCount] = useState(0)
 
     /*
     Levels:
@@ -131,7 +133,7 @@ export default props => {
     }, [computerWillStart])
     
     const checkGameOver = () => {
-        let gameOver = false
+        let _gameOver = false
 
         WINNING_POSSIBILITIES.forEach((possibility) => {
             let checkArray = []
@@ -145,7 +147,7 @@ export default props => {
                 setWinner('X')
                 setGameOver(true)
                 setComputerPlayed(true)
-                gameOver = true
+                _gameOver = true
                 return
             }
             
@@ -154,13 +156,13 @@ export default props => {
                 setWinner('O')
                 setGameOver(true)
                 setComputerPlayed(true)
-                gameOver = true
+                _gameOver = true
                 return
             }
             
         });
         
-        if(!gameOver && !gameArray.includes(null)) {
+        if(!_gameOver && !gameArray.includes(null)) {
             setMessage('Empatou!')
             setWinner(null)
             setGameOver(true)
@@ -177,8 +179,20 @@ export default props => {
         } else { //if drawed in the first play
             setNextPlayer('X')
         }
-         
+
+        if(gameOver) {
+            if(winner === 'X') {
+                setXCount(xCount + 1)
+            } else if(winner === 'O') {
+                setOCount(oCount + 1)
+            }
+        }
     }, [gameOver])
+
+    useEffect(()=> {
+       setXCount(0)
+       setOCount(0)
+    }, [level])
 
     const restart = () => {
         if(!gameOver && computerWonLastGame(winner ? winner : previousWinner)) {
@@ -216,8 +230,9 @@ export default props => {
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
-                      <h5 className="card-category">Placar: </h5>
-                      <CardTitle tag="h2">{message}&nbsp;</CardTitle>
+                        <h5 className="card-category">{`Jogador X: ${xCount}`}</h5>
+                        <h5 className="card-category">{`Jogador O: ${oCount}`}</h5>
+                        <CardTitle tag="h4">{message}&nbsp;</CardTitle>
                     </Col>
                     {props.gameMode === LOCAL_SINGLEPLAYER_GAME ? 
                         <Col sm="6">
