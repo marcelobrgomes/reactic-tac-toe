@@ -103,15 +103,10 @@ const attackMove = (computerWinningPossibilities, possibilitiesComputerCanWinInT
 const normalMove = (lastPlayer, winningPossibilities, gameArray) => {
     let userWinningPossibilities = getWinningPossibilities(lastPlayer, winningPossibilities, gameArray)
     let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
-    
-    let computerWinningPossibilities = getWinningPossibilities(lastPlayer === 'X' ? 'O' : 'X', winningPossibilities, gameArray)
-    let possibilitiesComputerCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(computerWinningPossibilities)
 
-    if(possibilitiesComputerCanWinInTheNextMove.length > 0) {
-        return attackMove(computerWinningPossibilities, possibilitiesComputerCanWinInTheNextMove, gameArray)
-    } else if(possibilitiesUserCanWinInTheNextMove.length > 0) {
+    if(possibilitiesUserCanWinInTheNextMove.length > 0) {
         return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
-    } 
+    } else 
 
     return attackMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
 }
@@ -160,14 +155,9 @@ const hardMove = (lastPlayer, winningPossibilities, gameArray) => {
     
     let userWinningPossibilities = getWinningPossibilities(lastPlayer, winningPossibilities, gameArray)
     let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
-    
-    let computerWinningPossibilities = getWinningPossibilities(lastPlayer === 'X' ? 'O' : 'X', winningPossibilities, gameArray)
-    let possibilitiesComputerCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(computerWinningPossibilities)
 
     if(isUserDoingATriangle(gameArray)) {
         return edgeMove(gameArray)
-    } else if(possibilitiesComputerCanWinInTheNextMove.length > 0) {
-        return attackMove(computerWinningPossibilities, possibilitiesComputerCanWinInTheNextMove, gameArray)
     } else if(possibilitiesUserCanWinInTheNextMove.length > 0) {
         return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
     } 
