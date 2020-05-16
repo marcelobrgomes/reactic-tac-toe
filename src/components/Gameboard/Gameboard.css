@@ -9,3 +9,9 @@
     grid-template-rows: repeat(3, minmax(108px, 1fr));
     grid-area: main;
 }
+
+.board-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}

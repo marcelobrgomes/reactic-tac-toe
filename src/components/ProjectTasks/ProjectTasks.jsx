@@ -66,7 +66,7 @@ export default props => {
         },
         {
           title: 'Placar',
-          description: 'Implementar o placar',
+          description: 'Implementar o placar, com botão para zera-lo.',
           completed: false
         },
         {
@@ -78,7 +78,12 @@ export default props => {
             title: 'Corrigir restart singleplayer',
             description: 'Identificar e corrigir bugs no restart',
             completed: true
-          }
+        },
+        {
+          title: 'Multiplayer Online',
+          description: 'Implementar o multiplayer online',
+          completed: false
+      }
       ]
 
     return (

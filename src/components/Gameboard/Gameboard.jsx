@@ -20,7 +20,8 @@ import {
     Table,
     Row,
     Col,
-    UncontrolledTooltip
+    UncontrolledTooltip,
+    CardFooter
   } from "reactstrap";
 
 const initialGameArray = [null, null, null, null, null, null, null, null, null]
@@ -230,8 +231,6 @@ export default props => {
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
-                        <h5 className="card-category">{`Jogador X: ${xCount}`}</h5>
-                        <h5 className="card-category">{`Jogador O: ${oCount}`}</h5>
                         <CardTitle tag="h4">{message}&nbsp;</CardTitle>
                     </Col>
                     {props.gameMode === LOCAL_SINGLEPLAYER_GAME ? 
@@ -265,6 +264,13 @@ export default props => {
                         <div></div>
                     </div>
                 </CardBody>
+                <CardFooter>
+                    <div className="board-footer">
+                        <CardTitle tag="h4">{`Jogador X: ${xCount}`}</CardTitle>
+                        <CardTitle tag="h4">{`Jogador O: ${oCount}`}</CardTitle>
+                        {/* <span><h5 className="card-category">Zerar o Placar</h5></span> */}
+                    </div>
+                </CardFooter>
               </Card>
         </React.Fragment>
     )
