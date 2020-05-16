@@ -6,10 +6,11 @@ This is a project created for study [React](https://reactjs.org/). The game was 
 
 ## Features
 
-- Single Player: the user plays with the machine. There are three game levels:
-	1. Easy: the machine plays using random moves.
-	2. Normal: the machine plays in defense mode.
-	3. Hard: the machine plays both in defense and attack mode.
+- Single Player: the user plays against the machine. There are four game levels:
+	1. Beginner: the machine plays using random moves.
+	2. Easy: the machine plays in defense mode.
+	3. Normal: the machine plays both in defense and attack mode.
+	4. Hard: the machine plays both in defense and attack mode, but using strategies.
 - Local Multiplayer
 - Using the [Creative Tim's Free Black Dashboard React Theme](https://demos.creative-tim.com/black-dashboard-react/#/admin/)
 - CSS Animations with [Animate CSS](https://daneden.github.io/animate.css/)
