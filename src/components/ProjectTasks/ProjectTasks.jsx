@@ -62,12 +62,12 @@ export default props => {
         {
           title: 'Novo nível Difícil',
           description: 'Passar o nível difícil para o médio e desenvolver uma nova lógica para o nível difícil',
-          completed: false
+          completed: true
         },
         {
           title: 'Placar',
-          description: 'Implementar o placar, com botão para zera-lo.',
-          completed: false
+          description: 'Implementar o placar.',
+          completed: true
         },
         {
           title: 'Animações',

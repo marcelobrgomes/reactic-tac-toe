@@ -32,15 +32,16 @@ class Footer extends React.Component {
             <NavItem>
               <NavLink href="https://github.com/marcelobrgomes/reactic-tac-toe" target="_blank">GitHub</NavLink>
             </NavItem>
-            {/*<NavItem>
-              <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">About Us</NavLink>
-            </NavItem>
             <NavItem>
+              <NavLink href="https://www.linkedin.com/in/marcelo-de-britto-gomes-73427915/" target="_blank">LinkedIn</NavLink>
+            </NavItem>
+            {/* <NavItem>
               <NavLink href="https://www.creative-tim.com/blog?ref=bdr-user-archive-footer">Blog</NavLink>
             </NavItem> */}
           </Nav>
-          <div className="copyright">
-            © {new Date().getFullYear()} Marcelo de Britto Gomes. Black Dashboard React theme by{" "}
+          <div className="copyright ">
+            © {new Date().getFullYear()} Marcelo de Britto Gomes |
+            Theme by{" "}
             <a
               href="https://www.creative-tim.com/?ref=bdr-user-archive-footer"
               target="_blank"

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBaby, faHiking, faUserNinja } from '@fortawesome/free-solid-svg-icons'
+import { faBaby, faHiking, faUserNinja, faMale } from '@fortawesome/free-solid-svg-icons'
 import { Button, ButtonGroup} from "reactstrap";
 import {LOCAL_SINGLEPLAYER_GAME} from '../../Constants'
 
@@ -11,6 +11,29 @@ export default (props) => {
             className="btn-group-toggle float-right"
             data-toggle="buttons"
             >
+            <Button
+                tag="label"
+                className={classNames("btn-simple", {
+                active: props.level === "veryEasy"
+                })}
+                color="info"
+                id="0"
+                size="sm"
+                onClick={() => { props.restart(LOCAL_SINGLEPLAYER_GAME); props.setLevel('veryEasy')}}
+            >
+                <input
+                defaultChecked
+                className="d-none"
+                name="options"
+                type="radio"
+                />
+                <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Iniciante
+                </span>
+                <span className="d-block d-sm-none">
+                    <FontAwesomeIcon icon={faBaby} />
+                </span>
+            </Button>
             <Button
                 tag="label"
                 className={classNames("btn-simple", {
@@ -28,10 +51,10 @@ export default (props) => {
                 type="radio"
                 />
                 <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                Fácil
+                    Fácil
                 </span>
                 <span className="d-block d-sm-none">
-                <FontAwesomeIcon icon={faBaby} />
+                    <FontAwesomeIcon icon={faMale} />
                 </span>
             </Button>
             <Button
@@ -50,10 +73,10 @@ export default (props) => {
                 type="radio"
                 />
                 <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                Normal
+                    Normal
                 </span>
                 <span className="d-block d-sm-none">
-                <FontAwesomeIcon icon={faHiking} />
+                    <FontAwesomeIcon icon={faHiking} />
                 </span>
             </Button>
             <Button
@@ -72,10 +95,10 @@ export default (props) => {
                 type="radio"
                 />
                 <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                Difícil
+                    Difícil
                 </span>
                 <span className="d-block d-sm-none">
-                <FontAwesomeIcon icon={faUserNinja} />
+                    <FontAwesomeIcon icon={faUserNinja} />
                 </span>
             </Button>
             </ButtonGroup>

@@ -1,5 +1,7 @@
 
-const easyMove = (gameArray) => {
+const CENTER_POSITION = 4
+
+const randomMove = (gameArray) => {
     let move = Math.floor(Math.random() * 9)
 
     while(gameArray[move] !== null) {
@@ -12,7 +14,7 @@ const easyMove = (gameArray) => {
     return move;
 }
 
-const normalMove = (lastPlayer, winningPossibilities, gameArray) => {
+const easyMove = (lastPlayer, winningPossibilities, gameArray) => {
     let userWinningPossibilities = getWinningPossibilities(lastPlayer, winningPossibilities, gameArray)
     let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
 
@@ -98,7 +100,7 @@ const attackMove = (computerWinningPossibilities, possibilitiesComputerCanWinInT
     return gameArray.lastIndexOf(null) //else, return the last available position
 }
 
-const hardMove = (lastPlayer, winningPossibilities, gameArray) => {
+const normalMove = (lastPlayer, winningPossibilities, gameArray) => {
     let userWinningPossibilities = getWinningPossibilities(lastPlayer, winningPossibilities, gameArray)
     let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
     
@@ -111,8 +113,66 @@ const hardMove = (lastPlayer, winningPossibilities, gameArray) => {
         return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
     } 
 
-    return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
+    return attackMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
 }
 
+const isFirstGameMove = (gameArray) => {
+    return gameArray.every(element => element === null)
+}
 
-export {easyMove, normalMove, hardMove}
+const isSecondGameMove = (gameArray) => {
+    return gameArray.filter(element => element !== null).length === 1
+}
+
+const cornerMove = (gameArray) => {
+    let cornerPositions = [0, 2, 6, 8]
+    let emptyCornerPositions = cornerPositions.filter(position => gameArray[position] === null)
+
+    return emptyCornerPositions[Math.floor(Math.random() * emptyCornerPositions.length)]
+}
+
+const edgeMove = (gameArray) => {
+    let edgePositions = [1, 3, 5, 7]
+    let emptyEdgePositions = edgePositions.filter(position => gameArray[position] === null)
+
+    return emptyEdgePositions[Math.floor(Math.random() * emptyEdgePositions.length)]
+}
+
+const getFilledCornerPositions = (gameArray) => {
+    let cornerPositions = [0, 2, 6, 8]
+    return cornerPositions.filter(position => gameArray[position] !== null)
+}
+
+const isUserDoingATriangle = (gameArray) => {
+     let filledCorners = getFilledCornerPositions(gameArray)
+
+     return gameArray[CENTER_POSITION] === 'O' && filledCorners.length === 2 && 
+        ((filledCorners.includes(0) && filledCorners.includes(8)) ||  
+        (filledCorners.includes(2) && filledCorners.includes(6)) )  
+}
+
+const hardMove = (lastPlayer, winningPossibilities, gameArray) => {
+    if(isFirstGameMove(gameArray)) {
+        return cornerMove(gameArray)
+    } else if(isSecondGameMove(gameArray)) {
+        return gameArray[CENTER_POSITION] !== null ? cornerMove(gameArray) : CENTER_POSITION
+    }
+    
+    let userWinningPossibilities = getWinningPossibilities(lastPlayer, winningPossibilities, gameArray)
+    let possibilitiesUserCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(userWinningPossibilities)
+    
+    let computerWinningPossibilities = getWinningPossibilities(lastPlayer === 'X' ? 'O' : 'X', winningPossibilities, gameArray)
+    let possibilitiesComputerCanWinInTheNextMove = getPossibilitiesPlayerCanWinInTheNextMove(computerWinningPossibilities)
+
+    if(isUserDoingATriangle(gameArray)) {
+        return edgeMove(gameArray)
+    } else if(possibilitiesComputerCanWinInTheNextMove.length > 0) {
+        return attackMove(computerWinningPossibilities, possibilitiesComputerCanWinInTheNextMove, gameArray)
+    } else if(possibilitiesUserCanWinInTheNextMove.length > 0) {
+        return defenseMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
+    } 
+
+    return attackMove(userWinningPossibilities, possibilitiesUserCanWinInTheNextMove, gameArray)
+}
+
+export {randomMove, easyMove, normalMove, hardMove}

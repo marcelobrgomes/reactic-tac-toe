@@ -3,7 +3,7 @@ import './Gameboard.css'
 import GameButton from '../GameButton/GameButton';
 import LevelSwitch from './LevelSwitch'
 import {LOCAL_SINGLEPLAYER_GAME} from '../../Constants'
-import {easyMove, normalMove, hardMove} from './ComputerMoves'
+import {randomMove, easyMove, normalMove, hardMove} from './ComputerMoves'
 
 import {
     Card,
@@ -55,16 +55,20 @@ export default props => {
 
     /*
     Levels:
-    - Easy: just random moves
-    - Normal: Defense moves
-    - Hard: Atack and defense moves
+    - Very Easy: just random moves
+    - Easy: Defense moves
+    - Normal: Atack and defense moves 
+    - Hard: Atack and defense moves with initial strategy
     */
     const computerPlay = () => {
         setTimeout(() => {
             let move
             switch(level) {
+                case 'veryEasy':
+                    move = randomMove(gameArray)
+                    break
                 case 'easy':
-                    move = easyMove(gameArray)
+                    move = easyMove(getNextPlayer(nextPlayer), WINNING_POSSIBILITIES, gameArray)
                     break
                 case 'hard':
                     move = hardMove(getNextPlayer(nextPlayer), WINNING_POSSIBILITIES, gameArray)
@@ -212,6 +216,7 @@ export default props => {
         const boardElement = document.querySelector('.board')
         boardElement.classList.add('rollOut')
         boardElement.classList.add('rollIn')
+        boardElement.classList.add('fast')
         
         if(!eventAnimationRegistered) {
             boardElement.addEventListener('animationend', function(e) {
