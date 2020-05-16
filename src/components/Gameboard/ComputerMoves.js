@@ -146,7 +146,8 @@ const getFilledCornerPositions = (gameArray) => {
 const isUserDoingATriangle = (gameArray) => {
      let filledCorners = getFilledCornerPositions(gameArray)
 
-     return gameArray[CENTER_POSITION] === 'O' && filledCorners.length === 2 && 
+     return gameArray[CENTER_POSITION] === 'O' && filledCorners.length === 2 &&
+        gameArray.filter(position => gameArray[position] !== null).length === 3 &&
         ((filledCorners.includes(0) && filledCorners.includes(8)) ||  
         (filledCorners.includes(2) && filledCorners.includes(6)) )  
 }
