@@ -94,7 +94,7 @@ export default props => {
             return
         }
 
-        if(gameArray[i] !== null) {
+        if(gameArray[i] !== null || nextPlayer === 'O') {
             return;
         }
         
