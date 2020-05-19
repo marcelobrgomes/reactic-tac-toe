@@ -22,22 +22,31 @@ import Notifications from "./views/Notifications.js";
 import TableList from "./views/TableList.js";
 import Typography from "./views/Typography.js";
 import UserProfile from "./views/UserProfile.js";
+import { faUser, faUserFriends, faPeopleArrows } from '@fortawesome/free-solid-svg-icons'
 
 var routes = [
   {
     path: "/singlePlayer",
     name: "Singleplayer",
-    icon: "tim-icons icon-minimal-right",
+    icon: faUser,
     component: Dashboard,
     layout: "/admin"
   },
   {
     path: "/localMultiPlayer",
     name: "Local Multiplayer",
-    icon: "tim-icons icon-double-right",
+    icon: faUserFriends,
     component: Dashboard,
     layout: "/admin"
-  }/*,
+  },
+  {
+    path: "/onlineMultiPlayer",
+    name: "Online Multiplayer",
+    icon: faPeopleArrows,
+    component: Dashboard,
+    layout: "/admin"
+  }
+  /*,
   {
     path: "/icons",
     name: "Icons",

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import './Gameboard.css'
-import GameButton from '../GameButton/GameButton';
+import GameButton from '../GameButton/GameButton'
 import LevelSwitch from './LevelSwitch'
-import {LOCAL_SINGLEPLAYER_GAME} from '../../Constants'
+import {LOCAL_SINGLEPLAYER_GAME, ONLINE_MULTIPLAYER_GAME} from '../../Constants'
 import {randomMove, easyMove, normalMove, hardMove} from './ComputerMoves'
+import io from 'socket.io-client'
 
 import {
     Card,
@@ -52,6 +53,22 @@ export default props => {
     const [computerWillStart, setComputerWillStart] = useState(false)
     const [xCount, setXCount] = useState(0)
     const [oCount, setOCount] = useState(0)
+    const [socket, setSocket] = useState(null)
+
+    useEffect(() => {
+        if(props.gameMode === ONLINE_MULTIPLAYER_GAME && !socket) {
+            setMessage('Em breve...')
+            var _socket = io('http://localhost:3001')
+
+            _socket.on('move', gameData => {
+                setGameArray(gameData.gameArray)
+                setNextPlayer(gameData.nextPlayer)
+            })
+
+            setSocket(_socket)
+        }
+
+    }, [socket])
 
     /*
     Levels:
@@ -88,13 +105,37 @@ export default props => {
         setGameArray([...gameArray])
     }
 
+    const onlineUserPlay = (i) => {
+        if(gameOver) {
+            restart()
+            return
+        }
+        
+        if(gameArray[i] !== null) {
+            return;
+        }
+        
+        play(i)
+        checkGameOver()
+
+        socket.emit('move', {
+            gameArray: gameArray,
+            nextPlayer: getNextPlayer(nextPlayer)
+        })
+    }
+
     const userPlay = (i) => {
+        if(props.gameMode === ONLINE_MULTIPLAYER_GAME) {
+            onlineUserPlay(i)
+            return 
+        }
+
         if(gameOver) {
             restart()
             return
         }
 
-        if(gameArray[i] !== null || nextPlayer === 'O') {
+        if(gameArray[i] !== null || (props.gameMode === LOCAL_SINGLEPLAYER_GAME && nextPlayer === 'O')) {
             return;
         }
         
@@ -124,7 +165,6 @@ export default props => {
         }
         
         checkGameOver()
-
     }, [gameArray])
 
     useEffect(()=> {

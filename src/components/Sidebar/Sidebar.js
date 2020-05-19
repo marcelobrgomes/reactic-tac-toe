@@ -26,6 +26,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 var ps;
 
@@ -131,8 +132,8 @@ class Sidebar extends React.Component {
                     activeClassName="active"
                     onClick={this.props.toggleSidebar}
                   >
-                    <i className={prop.icon} />
-                    <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                    <FontAwesomeIcon icon={prop.icon} />
+                    <span className="link-text">{rtlActive ? prop.rtlName : prop.name}</span>
                   </NavLink>
                 </li>
               );
