@@ -88,6 +88,11 @@ export default props => {
           title: 'Notificações',
           description: 'Implementar mensagens como notificações',
           completed: false
+        },
+        {
+          title: 'Redux',
+          description: 'Utilizar redux para melhorar o acesso ao state da aplicação',
+          completed: false
         }
       ]
 

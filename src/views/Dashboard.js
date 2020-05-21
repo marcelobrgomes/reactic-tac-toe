@@ -18,7 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import Gameboard from '../components/Gameboard/Gameboard'
+import GameboardContainer from '../components/Gameboard/GameboardContainer'
 
 // reactstrap components
 import {Row, Col} from "reactstrap";
@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
         <div className="content">
           <Row>
             <Col lg="6">
-              <Gameboard 
+              <GameboardContainer
                 gameMode={this.props.location.pathname.replace('/admin/','')}
               />
             </Col>
