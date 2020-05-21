@@ -35,9 +35,6 @@ class Footer extends React.Component {
             <NavItem>
               <NavLink href="https://www.linkedin.com/in/marcelo-de-britto-gomes-73427915/" target="_blank">LinkedIn</NavLink>
             </NavItem>
-            {/* <NavItem>
-              <NavLink href="https://www.creative-tim.com/blog?ref=bdr-user-archive-footer">Blog</NavLink>
-            </NavItem> */}
           </Nav>
           <div className="copyright ">
             © {new Date().getFullYear()} Marcelo de Britto Gomes |

@@ -83,7 +83,12 @@ export default props => {
           title: 'Multiplayer Online',
           description: 'Implementar o multiplayer online',
           completed: false
-      }
+        },
+        {
+          title: 'Notificações',
+          description: 'Implementar mensagens como notificações',
+          completed: false
+        }
       ]
 
     return (
