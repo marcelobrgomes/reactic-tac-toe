@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react'
 import io from 'socket.io-client'
 
 import Gameboard from './Gameboard'
+import { SERVER_URL } from '../../Constants'
 
 export default props => {
-    const [socket, setSocket] = useState(io('http://localhost:3001'))
+    const [socket, setSocket] = useState(io(SERVER_URL))
     const [waitingOponent, setWaitingOponent] = useState(false)
     const [currentPlayer, setCurrentPlayer] = useState(null)
     const [oponentId, setOponentId] = useState(null)
@@ -13,7 +14,7 @@ export default props => {
         if(!props.message) {
             props.setMessage('Conectando no servidor...')
         }
-        
+
         socket.emit('join')
 
         socket.on('playerConnected', (connectionData) => {
