@@ -23,6 +23,20 @@ export default props => {
         setGameArray([...gameArray])
     }
 
+    const userPlay = (i) => {
+        if(gameOver) {
+            restart()
+            return
+        }
+
+        if(gameArray[i] !== null) {
+            return;
+        }
+        
+        play(i)
+        checkGameOver()
+    }
+
     const getNextPlayer = (currentPlayer) => {
         return currentPlayer === 'X' ? 'O' : 'X'
     }
@@ -130,9 +144,31 @@ export default props => {
                         playerOWasLastWinner={playerOWasLastWinner}
                         winner={winner}
                         previousWinner={previousWinner}
+                        userPlay={userPlay}
                     />
         case ONLINE_MULTIPLAYER_GAME:
-            return <OnlineMultiplayerGameboard />
+            return <OnlineMultiplayerGameboard 
+                        gameArray={gameArray}
+                        play={play}
+                        getNextPlayer={getNextPlayer}
+                        nextPlayer={nextPlayer}
+                        restart={restart}
+                        gameOver={gameOver}
+                        checkGameOver={checkGameOver}
+                        setGameOver={setGameOver}
+                        setXCount={setXCount}
+                        setOCount={setOCount}
+                        xCount={xCount}
+                        oCount={oCount}
+                        message={message}
+                        playerOWasLastWinner={playerOWasLastWinner}
+                        winner={winner}
+                        previousWinner={previousWinner}
+                        userPlay={userPlay}
+                        setMessage={setMessage}
+                        setGameArray={setGameArray}
+                        setNextPlayer={setNextPlayer}
+                    />
         default:
             return <SinglePlayerGameboard 
                         gameArray={gameArray}
