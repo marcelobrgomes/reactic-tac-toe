@@ -15,6 +15,7 @@ const DIAGONAL_2 = [0,4,8]
 
 const WINNING_POSSIBILITIES = [ROW_1, ROW_2, ROW_3, COLUMN_1, COLUMN_2, COLUMN_3, DIAGONAL_1, DIAGONAL_2]
 
-const SERVER_URL = 'http://localhost:3001'
+//const SERVER_URL = 'http://localhost:3001'
+const SERVER_URL = 'https://reactic-tac-toe-server.herokuapp.com'
 
 export {LOCAL_MULTIPLAYER_GAME, LOCAL_SINGLEPLAYER_GAME, ONLINE_MULTIPLAYER_GAME, WINNING_POSSIBILITIES, SERVER_URL}
